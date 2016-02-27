@@ -13,7 +13,7 @@ function update_content(page_content) {
     cur_page = page_content;
     $(page_content).addClass('active');
     page = page_content.id.substr(0, page_content.id.lastIndexOf('_'));
-    $('#page_content').load(page + '.html', function() {
+    $('#page_content').load("/store/" + page + '.html', function() {
       $.getScript("/js/" + page + ".js");
     });
   }
