@@ -5,10 +5,10 @@ import grails.transaction.Transactional
 @Transactional
 class MenuService {
 
-    def addProduct(def login, def token, def name, def description, def price, def categoryName) {
-        def account = CafeAccount.findByLogin((String) login)
+    // TODO tylko to testowania
+    def addProduct(def token, def name, def description, def price, def categoryName) {
+        def account = getUserByToken(token)
         if (account != null) {
-            checkToken(account, token)
             if (Product.findByNameAndMenu(name, account.cafe.menu) != null) {
                 throw new Exception("Produkt o takiej nazwie juz istnieje")
             } else {
@@ -26,10 +26,9 @@ class MenuService {
         }
     }
 
-    def updateDescription(def login, def token, def name, def description) {
-        def account = CafeAccount.findByLogin((String) login)
+    def updateDescription(def token, def name, def description) {
+        def account = (CafeAccount) getUserByToken(token)
         if (account != null) {
-            checkToken(account, token)
             def product = Product.findByNameAndMenu(name, account.cafe.menu)
             if (product != null) {
                 product.description = description
@@ -41,10 +40,9 @@ class MenuService {
         }
     }
 
-    def updatePrice(def login, def token, def name, def price) {
-        def account = CafeAccount.findByLogin((String) login)
+    def updatePrice(def token, def name, def price) {
+        def account = (CafeAccount) getUserByToken(token)
         if (account != null) {
-            checkToken(account, token)
             def product = Product.findByNameAndMenu(name, account.cafe.menu)
             if (product != null) {
                 product.description = price
@@ -56,10 +54,9 @@ class MenuService {
         }
     }
 
-    def removeProduct(def login, def token, def name) {
-        def account = CafeAccount.findByLogin((String) login)
+    def removeProduct(def token, def name) {
+        def account = getUserByToken(token)
         if (account != null) {
-            checkToken(account, token)
             def product = Product.findByNameAndMenu(name, account.cafe.menu)
             if (product != null) {
                 account.cafe.menu.removeFromProducts(product)
@@ -72,12 +69,9 @@ class MenuService {
         }
     }
 
-    def checkToken(def account, def currentToken) {
-        for (def token : account.tokens) {
-            if (token.token.equals(currentToken))
-                return
-        }
-
-        throw new Exception("Tokeny sie nie zgadzaja!")
+    def getUserByToken(def currentToken) {
+        def token = Token.findByToken(currentToken)
+        def account = token.cafeAccount
+        return account
     }
 }

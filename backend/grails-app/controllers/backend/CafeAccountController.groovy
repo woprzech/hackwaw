@@ -1,6 +1,7 @@
 package backend
 
 import exception.ExceptionHandler
+import grails.converters.JSON
 
 class CafeAccountController implements ExceptionHandler {
     CafeAccountService cafeAccountService
@@ -11,9 +12,9 @@ class CafeAccountController implements ExceptionHandler {
     }
 
     def login() {
-        cafeAccountService.login(params.login, params.password)
+        def token = cafeAccountService.login(params.login, params.password)
         session["loggedAccount"] = params.login
-        render "OK"
+        render token as JSON
     }
 
     def logout() {
