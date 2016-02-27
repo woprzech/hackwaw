@@ -41,11 +41,11 @@ body {
   border-bottom: 1px solid #fff;
 }
 
-.input-field input[type=text]:focus + label, .input-field input[type=password]:focus + label, .input-field input[type=email]:focus + label  {
+.input-field input[type=text]:focus + label, .input-field input[type=password]:focus + label, .input-field input[type=email]:focus + label, .input-field input[type=tel]:focus + label  {
   color: #fff;
 }
 
-.input-field input[type=text]:focus, .input-field input[type=password]:focus, .input-field input[type=email]:focus {
+.input-field input[type=text]:focus, .input-field input[type=password]:focus, .input-field input[type=email]:focus, .input-field input[type=tel]:focus {
   border-bottom: 1px solid #fff;
   box-shadow: 0 1px 0 0 #fff;
 }
