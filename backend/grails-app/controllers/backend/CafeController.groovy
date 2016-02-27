@@ -47,7 +47,7 @@ class CafeController implements ExceptionHandler {
     }
 
     def findByLocation() {
-        def x = params.userX
+            def x = params.userX
         def y = params.userY
         def rad = params.rad
 

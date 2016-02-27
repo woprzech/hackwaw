@@ -59,6 +59,16 @@ class UrlMappings {
             action = "createAccount"
         }
 
+        "/order/create" {
+            controller = "CafeOrder"
+            action = [POST: "newOrder"]
+        }
+
+        "/orders" {
+            controller = "CafeOrder"
+            action = "getOrders"
+        }
+
         "500"(view: '/error')
         "404"(view: '/notFound')
     }

@@ -58,4 +58,17 @@ class CafeAccountService {
             (1..n).collect { alphabet[nextInt(alphabet.length())] }.join()
         }
     }
+
+    def getCafeAccountByCafeId(def cafeId) {
+        def cafe = Cafe.findById(cafeId)
+        if (cafe == null) {
+            throw new Exception("Cafe o takim id nie istnieje")
+        }
+        def cafeAccount = CafeAccount.findByCafe(cafe)
+        if (cafeAccount == null) {
+            throw new Exception("Wybrana kawiarnia nie ma możliwości składania zamówień")
+        }
+        return cafeAccount
+
+    }
 }
