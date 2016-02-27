@@ -1,40 +1,92 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="../css/store.css" />
+    <link type="text/css" rel="stylesheet" href="../css/materialize.min.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../css/store.css"/>
 
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  </head>
+</head>
 
-  <body class="brown lighten-5">
-    <nav>
-      <div class="nav-wrapper brown lighten-1">
+<body class="brown lighten-5">
+<nav>
+    <div class="nav-wrapper brown lighten-1">
         <a href="#" id="brand_logo" class="brand-logo">
-          <img src="../img/logo.png" alt="logo" class="navbar-logo-image" />
-          Coffee - kokpit</a>
+            <img src="../img/logo.png" alt="logo" class="navbar-logo-image"/>
+            Coffee - kokpit</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li id="login_click" class="loggedout hide"><a href="#">Zaloguj</a></li>
-          <li id="company_name" class="loggedin"></li>
-          <li id="menu_click" class="loggedin"><a href="#">Menu</a></li>
-          <li id="orders_click" class="loggedin"><a href="#">Zamówienia</a></li>
-          <li id="logout_click" class="loggedin"><a href="#">Wyloguj</a></li>
+            <li id="login_click" class="loggedout hide"><a href="#">Zaloguj</a></li>
+            <li id="company_name" class="loggedin"></li>
+            <li id="menu_click" class="loggedin"><a href="#">Menu</a></li>
+            <li id="orders_click" class="loggedin"><a href="#">Zamówienia</a></li>
+            <li id="logout_click" class="loggedin"><a href="#">Wyloguj</a></li>
         </ul>
-      </div>
-    </nav>
+    </div>
+</nav>
 
-    <div id="page_content">
+<div id="page_content">
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                    <label for="first_name">First Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="last_name" type="text" class="validate">
+                    <label for="last_name">Last Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input disabled value="I am not editable" id="disabled" type="text" class="validate">
+                    <label for="disabled">Disabled</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" class="validate">
+                    <label for="email">Email</label>
+                </div>
+            </div>
+        </form>
     </div>
 
-    <!--Import jQuery before materialize.js-->
-    <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="../js/materialize.min.js"></script>
-    <script type="text/javascript" src="../js/store.js"></script>
+    <div id="valign" class="valign-wrapper">
+        <div id="login_box" class="valign center">
+            <div class="col s12 m5">
+                <div class="card-panel brown lighten-2">
+          <span class="white-text">
+            <div class="input-field col s12">
+                <input id="login" type="text" class="validate">
+                <label for="login">Login</label>
+            </div>
+            <div class="input-field col s12">
+                <input id="password" type="password" class="validate white-text">
+                <label for="password">Password</label>
+            </div>
+            <a id="login_btn" class="waves-effect waves-light btn brown">Zaloguj</a>
+          </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../js/materialize.min.js"></script>
+<script type="text/javascript" src="../js/store.js"></script>
 </body>
 </html>
