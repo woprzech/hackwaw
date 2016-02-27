@@ -17,7 +17,10 @@ class CafeAccountService {
             throw new Exception("Istnieje konto dla tej restauracji")
     }
 
-    def login(def userName, def password) {
+    def login(def sessionUser, def userName, def password) {
+        if (userName.equals(sessionUser))
+            throw new Exception("Uzytkownik juz zalogowany")
+
         def account = CafeAccount.findByLogin(userName)
         if (account != null) {
             if (!account.password.equals(password)) {

@@ -19,4 +19,9 @@ class MenuController implements ExceptionHandler {
         menuService.updatePrice(session["loggedAccount"], params.token, params.name, params.price)
         render "OK"
     }
+
+    def removeProduct() {
+        menuService.removeProduct(session["loggedAccount"], params.token, params.name)
+        render "OK"
+    }
 }

@@ -34,6 +34,11 @@ class UrlMappings {
             action = "updateDescription"
         }
 
+        "/cafe/menu/remove" {
+            controller = "Menu"
+            action = "removeProduct"
+        }
+
         "/account/login" {
             controller = "CafeAccount"
             action = "login"

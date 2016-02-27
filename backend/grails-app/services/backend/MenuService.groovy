@@ -56,6 +56,22 @@ class MenuService {
         }
     }
 
+    def removeProduct(def login, def token, def name) {
+        def account = CafeAccount.findByLogin((String) login)
+        if (account != null) {
+            checkToken(account, token)
+            def product = Product.findByNameAndMenu(name, account.cafe.menu)
+            if (product != null) {
+                account.cafe.menu.removeFromProducts(product)
+                product.delete()
+            } else {
+                throw new Exception("Nie znaleziono takiego produktu")
+            }
+        } else {
+            throw new Exception("Musisz sie najpierw zalogowac")
+        }
+    }
+
     def checkToken(def account, def currentToken) {
         for (def token : account.tokens) {
             if (token.token.equals(currentToken))
