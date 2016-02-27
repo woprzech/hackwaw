@@ -17,7 +17,7 @@ dataSource:
 environments:
     development:
         dataSource:
-             dbCreate: create-update
+             dbCreate: create-drop
              url: jdbc:mysql://localhost:3306/db
     test:
         dataSource:
@@ -51,7 +51,7 @@ environments:
 grails:
     profile: web
     codegen:
-        defaultPackage: tutorial
+        defaultPackage: backend
     spring:
         transactionManagement:
             proxies: false
