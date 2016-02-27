@@ -2,7 +2,7 @@ package backend
 
 class Product {
     Category category
-    double price
+    Long price
     String name
     String description
 
