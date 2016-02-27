@@ -14,7 +14,7 @@ class MenuService {
             } else {
                 def category = Category.findByName(categoryName)
                 if (category != null) {
-                    account.cafe.menu.addToProducts(new Product(name: name, description: description, price: price, category: category))
+                    account.cafe.menu.addToProducts(new Product(name: name, description: description, price: new BigDecimal(price), category: category))
                     if (!account.save())
                         throw new Exception("Nie udalo sie zapisac produktu")
                 } else {

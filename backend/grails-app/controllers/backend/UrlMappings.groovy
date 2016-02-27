@@ -14,6 +14,11 @@ class UrlMappings {
             action = "add"
         }
 
+        "/cafe/getMenu" {
+            controller = "Cafe"
+            action = "getAllProducts"
+        }
+
         "/cafe/getAll" {
             controller = "Cafe"
             action = "getAll"
@@ -52,6 +57,16 @@ class UrlMappings {
         "/account/create" {
             controller = "CafeAccount"
             action = "createAccount"
+        }
+
+        "/order/create" {
+            controller = "CafeOrder"
+            action = [POST: "newOrder"]
+        }
+
+        "/orders" {
+            controller = "CafeOrder"
+            action = "getOrders"
         }
 
         "500"(view: '/error')

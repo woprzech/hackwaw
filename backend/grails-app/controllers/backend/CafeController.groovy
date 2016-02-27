@@ -8,10 +8,10 @@ class CafeController implements ExceptionHandler {
 
     // testowanie
     def index() {
-        new Category(name: "Ciastka").save()
-        def kawa = new Category(name: "Kawa")
+        def kawa = new Category(name: "Kawa").save()
         kawa.save()
-        new Category(name: "Herbata").save()
+        new Category(name: "Ciastka").save()
+        new Category(name: "Inne").save()
 
         def cafe = new Cafe(name: "Kawiarnia", location: new Location(x: 52.00, y: 21.00), menu: new Menu())
         cafe.save()
@@ -47,12 +47,17 @@ class CafeController implements ExceptionHandler {
     }
 
     def findByLocation() {
-        def x = params.userX
+            def x = params.userX
         def y = params.userY
         def rad = params.rad
 
         def foundCafes = Cafe.findByLocationXBetweenAndLocationYBetween(x - rad, x + rad, y - rad, y + rad)
 
         render foundCafes as JSON
+    }
+
+    def getAllProducts() {
+        def menu = cafeService.getMenu(params.cafeId)
+        render menu.products as JSON
     }
 }

@@ -24,7 +24,7 @@ function add_order(nr, date, type, price) {
   $(tr).append(add_order_cell(type));
   $(tr).append(add_order_cell(get_order_hour(date)));
   $(tr).append(add_order_cell(get_order_price(price)));
-  $(tr).append(add_order_cell(get_button()));
+  $(tr).append(get_button());
   $('#tbody_orders').append(tr);
 }
 
@@ -44,8 +44,14 @@ function get_order_price(price) {
 }
 
 function get_button() {
+  var td = document.createElement('td');
+  td.style.width = '40%';
+  td.className = 'center';
+
   var btn = document.createElement('a');
   btn.className = 'waves-effect waves-light btn brown done';
   $(btn).html('Zamówienie zrealizowane')
-  return btn;
+  $(td).append(btn);
+
+  return td;
 }
