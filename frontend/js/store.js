@@ -8,7 +8,6 @@ function change_page() {
 }
 
 function update_content(page_content) {
-  console.log(page_content)
   if (cur_page !== page_content) {
     $(cur_page).removeClass('active');
     cur_page = page_content;
@@ -38,8 +37,16 @@ function logout() {
   $('.loggedin').each(function() {
     this.style.display = 'none';
   });
-  update_content($('#login_click')[0])
+  update_content($('#login_click')[0]);
 
+}
+
+function login_checker() {
+  if (token === '') {
+    update_content($('#login_click')[0]);
+  } else {
+    update_content($('#menu_click')[0]);
+  }
 }
 
 $(document).ready(function() {
@@ -47,4 +54,7 @@ $(document).ready(function() {
   $('#menu_click').on('click', change_page);
   $('#orders_click').on('click', change_page);
   $('#logout_click').on('click', logout);
+  $('#brand_logo').on('click', login_checker);
+
+  login_checker();
 });
