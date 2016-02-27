@@ -14,4 +14,12 @@ class CafeService {
             }
         }
     }
+
+    def getMenu(def cafeId) {
+        def cafe = Cafe.findById(cafeId)
+        if(cafe == null)
+            throw new Exception("Nie znaleziono takiej kawiarni")
+
+        return cafe.menu
+    }
 }

@@ -55,4 +55,9 @@ class CafeController implements ExceptionHandler {
 
         render foundCafes as JSON
     }
+
+    def getAllProducts() {
+        def menu = cafeService.getMenu(params.cafeId)
+        render menu.products as JSON
+    }
 }
