@@ -30,22 +30,31 @@ function navbar_login() {
 }
 
 function logout() {
-  // TODO wylogowanie + ciastka
-  $('.loggedout').each(function() {
-    this.style.display = 'block';
+  $.ajax({
+    type: 'GET',
+    url: '/backend/account/logout?token=' + token,
+    success: function(response) {
+      Cookies.remove('token');
+      token = '';
+      $('.loggedout').each(function() {
+        this.style.display = 'block';
+      });
+      $('.loggedin').each(function() {
+        this.style.display = 'none';
+      });
+      update_content($('#login_click')[0]);
+    },
+    error: function() {
+      Materialize.toast('Wylogowanie nie powiodło się.', 2000);
+    }
   });
-  $('.loggedin').each(function() {
-    this.style.display = 'none';
-  });
-  update_content($('#login_click')[0]);
-
 }
 
 function login_checker() {
-  if (token === '') {
-    update_content($('#login_click')[0]);
-  } else {
+  if (token !== '') {
     update_content($('#menu_click')[0]);
+  } else {
+    update_content($('#login_click')[0]);
   }
 }
 
@@ -72,6 +81,11 @@ function if_register() {
 }
 
 $(document).ready(function() {
+  if (Cookies.get('token')) {
+    token = Cookies.get('token');
+    navbar_login();
+  }
+
   $('#login_click').on('click', change_page);
   $('#menu_click').on('click', change_page);
   $('#orders_click').on('click', change_page);
