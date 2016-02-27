@@ -1,6 +1,7 @@
 // variables
 var cur_page = '';
 var token = '';
+var cafeid = '';
 
 // functions
 function change_page() {
@@ -20,7 +21,6 @@ function update_content(page_content) {
 }
 
 function navbar_login() {
-  // TODO logowanie + ciastka
   $('.loggedout').each(function() {
     this.style.display = 'none';
   });
@@ -35,7 +35,9 @@ function logout() {
     url: '/backend/account/logout?token=' + token,
     success: function(response) {
       Cookies.remove('token');
+      Cookies.remove('cafeid');
       token = '';
+      cafeid = '';
       $('.loggedout').each(function() {
         this.style.display = 'block';
       });
@@ -81,8 +83,9 @@ function if_register() {
 }
 
 $(document).ready(function() {
-  if (Cookies.get('token')) {
+  if (Cookies.get('cafeid')) {
     token = Cookies.get('token');
+    cafeid = Cookies.get('cafeid');
     navbar_login();
   }
 
