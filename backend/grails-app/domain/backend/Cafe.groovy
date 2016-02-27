@@ -1,14 +1,15 @@
 package backend
 
 class Cafe {
+    Location location
     String name
-    double locationX, locationY
-//    Menu menu
+    Menu menu
+
+    static embedded = ['location']
 
     static constraints = {
         name size: 1..20, unique: false, blank: false
-        locationX blank: false
-        locationY blank: false
-//        menu blank: true
+        location unique: true, blank: false
+        menu blank: true, unique: false
     }
 }
