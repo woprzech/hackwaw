@@ -69,6 +69,11 @@ class UrlMappings {
             action = "getOrders"
         }
 
+        "/orders/realize" {
+            controller = "CafeOrder"
+            action = [POST: "remOrder"]
+        }
+
         "500"(view: '/error')
         "404"(view: '/notFound')
     }
