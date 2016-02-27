@@ -53,3 +53,10 @@ body {
 .input-field .prefix.active {
   color: #fff;
 }
+
+.navbar-logo-image {
+  height: 2.5rem;
+  vertical-align: middle;
+  padding-left: 0.5rem;
+}
+
