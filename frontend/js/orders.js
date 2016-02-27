@@ -46,6 +46,6 @@ function get_order_price(price) {
 function get_button() {
   var btn = document.createElement('a');
   btn.className = 'waves-effect waves-light btn brown done';
-  $(btn).html('Wydano zamówienie')
+  $(btn).html('Zakończ zamówienie')
   return btn;
 }
