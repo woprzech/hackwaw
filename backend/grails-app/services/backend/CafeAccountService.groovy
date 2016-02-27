@@ -26,7 +26,7 @@ class CafeAccountService {
                 def str = generator((('A'..'Z') + ('0'..'9')).join(), 128)
                 def token = new Token(token: str)
                 account.addToTokens(token)
-                return str
+                return token
             }
         } else
             throw new Exception("Nie znaleziono uzytkownika z takim loginem")
