@@ -1,9 +1,5 @@
-.whereispizza-div {
-  text-align: center;
-}
-
-.whereispizza {
-  font-size: 36px;
+body {
+    padding: 0 10px;
 }
 
 .background-image {
@@ -19,4 +15,26 @@
     transform: translateX(-50%) translateY(-50%);
     background: url(../img/background.jpg) no-repeat;
     background-size: cover;
+}
+
+.background-color {
+    /*filter: blur(20px);*/
+
+}
+
+.custom-card {
+    background-color: rgba(238, 235, 233, 0.8);
+    margin: 0 auto;
+    padding: 0 5% 3% 5%;
+}
+
+.title-card {
+    padding-top: 70px;
+}
+
+.logo-img {
+    width: 150px;
+    position: relative;
+    top: 100px;
+    z-index: 1;
 }
