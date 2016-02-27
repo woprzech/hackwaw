@@ -14,7 +14,7 @@ class UrlMappings {
             action = "add"
         }
 
-        "/cafe/getAllProducts" {
+        "/cafe/getMenu" {
             controller = "Cafe"
             action = "getAllProducts"
         }
