@@ -38,3 +38,8 @@ body {
     top: 100px;
     z-index: 1;
 }
+
+.main-container {
+    position: relative;
+    top: -70px;
+}
