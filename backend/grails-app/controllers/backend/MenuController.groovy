@@ -1,26 +1,22 @@
 package backend
 
-class MenuController {
+import exception.ExceptionHandler
+
+class MenuController implements ExceptionHandler {
+    MenuService menuService
 
     def addProduct() {
-        def account = CafeAccount.findByLogin((String) session["loggedAccount"])
-        if (account != null) {
-            if (Product.findByNameAndMenu(params.name, account.cafe.menu) != null) {
-                render(status: 406, text: "Produkt o takiej nazwie istnieje")
-            } else {
-                def category = Category.findByName(params.category)
-                if (category != null) {
-                    account.cafe.menu.addToProducts(new Product(name: params.name, description: params.description, price: params.price, category: category))
-                    if (account.save())
-                        render(text: "OK")
-                    else
-                        render(status: 406, text: "Nie udalo sie zapisac")
-                } else {
-                    render(status: 404, text: "Nie ma takiej kategorii")
-                }
-            }
-        } else {
-            render(status: 401, text: "Musisz sie najpierw zalogowac")
-        }
+        menuService.addProduct(session["loggedAccount"], params.name, params.description, params.price, params.category)
+        render "OK"
+    }
+
+    def updateDescription() {
+        menuService.updateDescription(session["loggedAccount"], params.name, params.desciption)
+        render "OK"
+    }
+
+    def updatePrice() {
+        menuService.updatePrice(session["loggedAccount"], params.name, params.price)
+        render "OK"
     }
 }

@@ -1,8 +1,10 @@
 package backend
 
+import exception.ExceptionHandler
 import grails.converters.JSON
 
-class CafeController {
+class CafeController implements ExceptionHandler {
+    CafeService cafeService
 
     // testowanie
     def index() {
@@ -40,15 +42,8 @@ class CafeController {
 
     def add() {
         def cafe = new Cafe(params)
-        if (Cafe.findByLocationXAndLocationY(cafe.locationX, cafe.locationY) != null) {
-            render(status: 406, text: "Kawiarnia o podanych lokalizacjach juz istnieje")
-        } else {
-            if (cafe.save()) {
-                render(text: "Zapisano kawiarnie")
-            } else {
-                render(status: 406, text: "Nie udalo sie zapisac kawiarni")
-            }
-        }
+        cafeService.saveCafe(cafe)
+        render "OK"
     }
 
     def findByLocation() {
@@ -59,14 +54,5 @@ class CafeController {
         def foundCafes = Cafe.findByLocationXBetweenAndLocationYBetween(x - rad, x + rad, y - rad, y + rad)
 
         render foundCafes as JSON
-    }
-
-    def getLocation() {
-        def cafeId = params.id
-        def cafe = Cafe.findById(cafeId)
-        if(cafe == null)
-            render(status: 406, text: "Nie znaleziono danej restauracji")
-        else
-            render cafe.location as JSON
     }
 }

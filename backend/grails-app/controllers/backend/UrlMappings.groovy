@@ -9,6 +9,11 @@ class UrlMappings {
             }
         }
 
+        "/cafe/add" {
+            controller = "Cafe"
+            action = "add"
+        }
+
         "/cafe/getAll" {
             controller = "Cafe"
             action = "getAll"
@@ -19,14 +24,14 @@ class UrlMappings {
             action = "findByLocation"
         }
 
-        "/cafe/getLocation" {
-            controller = "Cafe"
-            action = "getLocation"
-        }
-
         "/cafe/menu/addProduct" {
             controller = "Menu"
             action = "addProduct"
+        }
+
+        "/cafe/menu/update/description" {
+            controller = "Menu"
+            action = "updateDescription"
         }
 
         "/account/login" {
