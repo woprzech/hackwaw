@@ -17,10 +17,7 @@ class CafeAccountService {
             throw new Exception("Istnieje konto dla tej restauracji")
     }
 
-    def login(def sessionUser, def userName, def password) {
-        if (userName.equals(sessionUser))
-            throw new Exception("Uzytkownik juz zalogowany")
-
+    def login(def userName, def password) {
         def account = CafeAccount.findByLogin(userName)
         if (account != null) {
             if (!account.password.equals(password)) {
@@ -34,17 +31,25 @@ class CafeAccountService {
             throw new Exception("Nie znaleziono uzytkownika z takim loginem")
     }
 
-    def logout(def userName, def currentToken) {
-        def account = CafeAccount.findByLogin(userName)
+    def logout(def currentToken) {
+        def account = getUserByToken(currentToken)
         if (account != null) {
             for (int i = 0; i < account.tokens.size(); i++) {
                 if (account.tokens[i].equals(currentToken)) {
-                    account.removeFromTokens(account.tokens[i])
+                    def token = account.tokens[i]
+                    account.removeFromTokens(token)
+                    token.delete()
                     break;
                 }
             }
         } else
             throw new Exception("Nie znaleziono uzytkownika z takim loginem")
+    }
+
+    def getUserByToken(def currentToken) {
+        def token = Token.findByToken(currentToken)
+        def account = token.cafeAccount
+        return account
     }
 
     def generator = { String alphabet, int n ->
