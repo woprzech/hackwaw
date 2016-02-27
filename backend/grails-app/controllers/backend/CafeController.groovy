@@ -8,10 +8,10 @@ class CafeController implements ExceptionHandler {
 
     // testowanie
     def index() {
-        new Category(name: "Ciastka").save()
-        def kawa = new Category(name: "Kawa")
+        def kawa = new Category(name: "Kawa").save()
         kawa.save()
-        new Category(name: "Herbata").save()
+        new Category(name: "Ciastka").save()
+        new Category(name: "Inne").save()
 
         def cafe = new Cafe(name: "Kawiarnia", location: new Location(x: 52.00, y: 21.00), menu: new Menu())
         cafe.save()
