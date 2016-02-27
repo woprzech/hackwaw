@@ -2,8 +2,6 @@ package backend
 
 import grails.transaction.Transactional
 
-import java.security.InvalidParameterException
-
 @Transactional
 class CafeAccountService {
 
@@ -19,13 +17,36 @@ class CafeAccountService {
             throw new Exception("Istnieje konto dla tej restauracji")
     }
 
-    def login(def session, def userName, def password) {
+    def login(def userName, def password) {
         def account = CafeAccount.findByLogin(userName)
         if (account != null) {
             if (!account.password.equals(password)) {
-                throw new InvalidParameterException("Zle haslo")
+                throw new Exception("Zle haslo")
+            } else {
+                def str = generator((('A'..'Z') + ('0'..'9')).join(), 128)
+                def token = new Token(token: str)
+                account.addToTokens(token)
             }
         } else
-            throw new ClassNotFoundException("Nie znaleziono uzytkownika z takim loginem")
+            throw new Exception("Nie znaleziono uzytkownika z takim loginem")
+    }
+
+    def logout(def userName, def currentToken) {
+        def account = CafeAccount.findByLogin(userName)
+        if (account != null) {
+            for (int i = 0; i < account.tokens.size(); i++) {
+                if (account.tokens[i].equals(currentToken)) {
+                    account.removeFromTokens(account.tokens[i])
+                    break;
+                }
+            }
+        } else
+            throw new Exception("Nie znaleziono uzytkownika z takim loginem")
+    }
+
+    def generator = { String alphabet, int n ->
+        new Random().with {
+            (1..n).collect { alphabet[nextInt(alphabet.length())] }.join()
+        }
     }
 }

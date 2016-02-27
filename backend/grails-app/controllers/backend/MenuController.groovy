@@ -6,17 +6,17 @@ class MenuController implements ExceptionHandler {
     MenuService menuService
 
     def addProduct() {
-        menuService.addProduct(session["loggedAccount"], params.name, params.description, params.price, params.category)
+        menuService.addProduct(session["loggedAccount"], params.token, params.name, params.description, params.price, params.category)
         render "OK"
     }
 
     def updateDescription() {
-        menuService.updateDescription(session["loggedAccount"], params.name, params.desciption)
+        menuService.updateDescription(session["loggedAccount"], params.token, params.name, params.desciption)
         render "OK"
     }
 
     def updatePrice() {
-        menuService.updatePrice(session["loggedAccount"], params.name, params.price)
+        menuService.updatePrice(session["loggedAccount"], params.token, params.name, params.price)
         render "OK"
     }
 }

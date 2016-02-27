@@ -11,12 +11,13 @@ class CafeAccountController implements ExceptionHandler {
     }
 
     def login() {
-        cafeAccountService.login(session, params.login, params.password)
+        cafeAccountService.login(params.login, params.password)
         session["loggedAccount"] = params.login
         render "OK"
     }
 
     def logout() {
+        cafeAccountService.logout(session["loggedAccount"], params.token)
         session.invalidate()
         render "OK"
     }
