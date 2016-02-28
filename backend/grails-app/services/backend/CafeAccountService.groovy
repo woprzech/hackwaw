@@ -19,7 +19,7 @@ class CafeAccountService {
 
     def login(def userName, def password, def token) {
         def account = CafeAccount.findByLogin(userName)
-        if (token == null) {
+        if (token != null) {
             if (account != null) {
                 if (!account.password == password) {
                     throw new Exception("Zle haslo")
