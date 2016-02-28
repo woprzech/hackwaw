@@ -1,38 +1,48 @@
 <div id="valign" class="valign-wrapper">
   <div class="valign">
-    <div class="section scrollspy">
-      <h2 class="header light-blue-text text-darken-3">
+    <div>
+      <h2 class="header light-blue-text text-darken-3" style="font-size: 36px;">
         Dołącz do nas!
       </h2>
       <p class="caption brown-text text-darken-4">
-        Skorzystaj z oferty najlepszej strony dla kawiarni na świecie.<br>
+        Skorzystaj z oferty najlepszej strony dla kawiarni w Warszawie.<br>
         <b style="font-size: 18px;">Zarejestruj się już dziś.</p>
-      </p>
-    </div>
-    <div id="login_box" class="center">
-      <div class="col s12 m5">
-        <div class="card-panel brown lighten-2">
-          <span class="white-text">
-            <div class="input-field col s12">
-              <input id="email" type="email" class="validate">
-              <label for="email">Email</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="phone" type="tel" class="validate">
-              <label for="phone">Telefon</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="name" type="text" class="validate">
-              <label for="name">Nazwa kawiarni</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="address" type="text" class="validate">
-              <label for="address">Adres</label>
-            </div>
-            <a id="register_btn" class="waves-effect waves-light btn brown">Wyślij zgłoszenie</a>
-          </span>
+        </p>
+      </div>
+      <div id="login_box" class="center">
+        <div class="col s12 m5">
+          <div class="card-panel brown lighten-2">
+            <span class="white-text">
+              <div class="input-field col s12">
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="phone" type="tel" class="validate">
+                <label for="phone">Telefon</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="name" type="text" class="validate">
+                <label for="name">Nazwa kawiarni</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="address" type="text" class="validate">
+                <label for="address">Adres</label>
+              </div>
+              <a id="register_btn" class="waves-effect waves-light btn brown">Wyślij zgłoszenie</a>
+            </span>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  <!-- Modal Structure -->
+  <div id="registration_confirmation" class="modal">
+    <div class="modal-content">
+      <h4>Dziękujemy za rejestrację</h4>
+      <p>Skontaktujemy się z Państwem w ciągu najbliższych dni.</p>
+    </div>
+    <div class="modal-footer">
+      <a id="registration_confirmation_ok" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+    </div>
+  </div>
