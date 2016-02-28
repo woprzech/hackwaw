@@ -28,16 +28,14 @@ function get_orders() {
     type: 'GET',
     url: '/backend/orders?token=' + token,
     success: function(response) {
+      console.log(response);
       for (var i=0; i<response.length; ++i) {
         var current = response[i];
         var nr = current.id;
         var date = new Date(current.orderDate.replace( /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z/, "$3/$2/$1 $4:$5:$6"));
-        var type = '';
-        for (var j=0; j<current.products.length; ++j) {
-
-        }
+        var name = current.userName;
         var price = current.totalPrice;
-        add_order(nr, date, type, price);
+        add_order(nr, date, name, current.positions, price);
       }
     },
     error: function() {
@@ -46,10 +44,10 @@ function get_orders() {
   });
 }
 
-function add_order(nr, date, type, price) {
+function add_order(nr, date, name, order_list, price) {
   var tr = document.createElement('tr');
   $(tr).append(add_order_cell(nr));
-  $(tr).append(add_order_cell(type));
+  $(tr).append(add_types(name, order_list));
   $(tr).append(add_order_cell(get_order_hour(date)));
   $(tr).append(add_order_cell(get_order_price(price)));
   $(tr).append(get_button());
@@ -59,6 +57,41 @@ function add_order(nr, date, type, price) {
 function add_order_cell(val) {
   var td = document.createElement('td');
   $(td).html(val);
+  return td;
+}
+
+function toggle_list() {
+  console.log($(this).children('ul').first()[0])
+  var td = $(this).children('ul').first()[0];
+  $(td).slideToggle();
+}
+
+function add_types(name, order_list) {
+  var td = document.createElement('td');
+  td.style.cursor = 'pointer';
+  td.style.width = '350px';
+  $(td).on('click', toggle_list);
+
+  var span = document.createElement('span');
+  $(span).html(name);
+  var ul1 = document.createElement('ul');
+  ul1.className = 'collection';
+
+  var ul = document.createElement('ul');
+  ul.className = 'collection';
+  ul.style.display = 'none';
+  for (var i=0; i<order_list.length; ++i) {
+    var current = order_list[i]
+    var li = document.createElement('li');
+    li.className = 'collection-item';
+    $(li).html(current.product.name + ' x' + current.amount + ', cena: ' + current.product.price + ' zł');
+
+    $(ul).append(li);
+  }
+
+  $(td).append(span);
+  $(td).append(ul);
+
   return td;
 }
 
