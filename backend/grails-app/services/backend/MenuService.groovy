@@ -30,13 +30,13 @@ class MenuService {
         if (account != null) {
             def product = Product.findByIdAndMenu(productId, account.cafe.menu)
             if (product != null) {
-                product.description = newDescription[0]
-                product.name = newName[0]
-                product.price = newPrice[0]
+                product.description = newDescription
+                product.name = String.valueOf(newName)
+                product.price = newPrice
                 product.category = category
                 product.save()
             } else {
-                account.cafe.menu.addToProducts(new Product(name: newName[0], description: newDescription[0], price: newPrice[0], category: category))
+                account.cafe.menu.addToProducts(new Product(name: newName, description: newDescription, price: newPrice, category: category))
             }
         } else {
             throw new Exception("Musisz sie najpierw zalogowac")
