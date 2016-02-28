@@ -19,7 +19,8 @@ class CafeAccountService {
 
     def login(def userName, def password, def token) {
         def account = CafeAccount.findByLogin(userName)
-        if (token != null) {
+        def foundToken = Token.findByToken(token)
+        if (foundToken == null) {
             if (account != null) {
                 if (!account.password == password) {
                     throw new Exception("Zle haslo")
@@ -32,11 +33,7 @@ class CafeAccountService {
             } else
                 throw new Exception("Nie znaleziono uzytkownika z takim loginem")
         } else {
-            def foundToken = Token.findByToken(token)
-            if (foundToken == null)
-                throw new Exception("Nie znaleziono takiego tokenu")
-            else
-                return foundToken
+            return foundToken
         }
     }
 
