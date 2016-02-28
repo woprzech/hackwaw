@@ -5,25 +5,25 @@ import grails.transaction.Transactional
 @Transactional
 class MenuService {
 
-    def addProduct(def token, def name, def description, def price, def categoryName) {
-        def account = getUserByToken(token)
-        if (account != null) {
-            if (Product.findByNameAndMenu(name, account.cafe.menu) != null) {
-                throw new Exception("Produkt o takiej nazwie juz istnieje")
-            } else {
-                def category = Category.findByName(categoryName)
-                if (category != null) {
-                    account.cafe.menu.addToProducts(new Product(name: name, description: description, price: new BigDecimal(price), category: category))
-                    if (!account.save())
-                        throw new Exception("Nie udalo sie zapisac produktu")
-                } else {
-                    throw new Exception("Nie znaleziono kategorii")
-                }
-            }
-        } else {
-            throw new Exception("Musisz sie najpierw zalogowac")
-        }
-    }
+//    def addProduct(def token, def name, def description, def price, def categoryName) {
+//        def account = getUserByToken(token)
+//        if (account != null) {
+//            if (Product.findByNameAndMenu(name, account.cafe.menu) != null) {
+//                throw new Exception("Produkt o takiej nazwie juz istnieje")
+//            } else {
+//                def category = Category.findByName(categoryName)
+//                if (category != null) {
+//                    account.cafe.menu.addToProducts(new Product(name: name, description: description, price: new BigDecimal(price), category: category))
+//                    if (!account.save())
+//                        throw new Exception("Nie udalo sie zapisac produktu")
+//                } else {
+//                    throw new Exception("Nie znaleziono kategorii")
+//                }
+//            }
+//        } else {
+//            throw new Exception("Musisz sie najpierw zalogowac")
+//        }
+//    }
 
 //    def updateDescription(def token, def productId, def description) {
 //        def account = (CafeAccount) getUserByToken(token)
@@ -82,7 +82,7 @@ class MenuService {
                 product.price = new BigDecimal(newPrice)
                 product.category = category
             } else {
-                throw new Exception("Nie znaleziono takiego produktu")
+                account.cafe.menu.addToProducts(new Product(name: name, description: description, price: new BigDecimal(price), category: category))
             }
         } else {
             throw new Exception("Musisz sie najpierw zalogowac")

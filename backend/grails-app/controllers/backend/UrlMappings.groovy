@@ -29,25 +29,15 @@ class UrlMappings {
             action = "findByLocation"
         }
 
-        "/cafe/menu/addProduct" {
-            controller = "Menu"
-            action = [POST: "addProduct"]
-        }
-
         "/cafe/menu/product/update" {
             controller = "Menu"
             action = [POST: "updateProduct"]
         }
 
-//        "/cafe/menu/update/description" {
-//            controller = "Menu"
-//            action = [POST: "updateDescription"]
-//        }
-//
-//        "/cafe/menu/update/price" {
-//            controller = "Menu"
-//            action = [POST: "updatePrice"]
-//        }
+        "/order/add" {
+            controller = "Orderr"
+            action = [POST: "create"]
+        }
 
         "/cafe/menu/remove" {
             controller = "Menu"
@@ -70,18 +60,8 @@ class UrlMappings {
         }
 
         "/order/create" {
-            controller = "CafeOrder"
+            controller = "Orderr"
             action = [POST: "newOrder"]
-        }
-
-        "/orders" {
-            controller = "CafeOrder"
-            action = "getOrders"
-        }
-
-        "/orders/realize" {
-            controller = "CafeOrder"
-            action = [POST: "remOrder"]
         }
 
         "/categories/get" {

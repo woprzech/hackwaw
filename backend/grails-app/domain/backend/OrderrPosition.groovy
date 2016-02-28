@@ -1,9 +1,7 @@
 package backend
 
-class CafeOrderPosition {
-
+class OrderrPosition {
     Product product
-    static belongsTo = ["order": CafeOrder]
     int amount
 
     static constraints = {
