@@ -74,7 +74,7 @@ class UrlMappings {
             action = [POST: "remOrder"]
         }
 
-        "categories/get" {
+        "/categories/get" {
             controller = "Category"
             action = [GET: "getAll"]
         }
