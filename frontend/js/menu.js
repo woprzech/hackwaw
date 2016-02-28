@@ -44,7 +44,6 @@ function add_default_cell(value) {
 }
 
 function add_dropdown_cell(product_id, label, categoryItems, currentCategoryId) {
-    console.log(categoryItems)
     var td = document.createElement('td');
     var select = document.createElement('select');
     select.setAttribute('id', 'product_' + product_id + '_' + label);
@@ -77,7 +76,6 @@ function add_textbox_cell(product_id, label, value) {
 function remove_action(product_id) {
     var token = Cookies.get('token');
     var name = $('#product_' + product_id + '_name').val();
-    console.log("name: " + name);
     $.ajax({
         type: 'POST',
         url: '/backend/cafe/menu/remove',
