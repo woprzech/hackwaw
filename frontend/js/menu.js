@@ -1,20 +1,38 @@
-add_product_example();
+load_products();
 
 
-function add_product_example() {
-    add_product(1, 'abc', 'Caffe Latte', 10.9, "Kawa");
-    add_product(2, 'abc', 'Caffe Latte', 10.9, "Inne");
+function load_products() {
+    var token = Cookies.get('token');
+    var cafe_id = Cookies.get('cafeid');
+    var address = '/backend/cafe/getAllProducts?cafeId=' + cafe_id + '&token=' + token;
+    var categoriesAddress = '/backend/categories/get?cafeId=' + cafe_id + '&token=' + token;
+
+    var categoiresList = [];
+    $.getJSON(categoriesAddress, function(data) {
+        categoiresList = data;
+    });
+
+    $.getJSON(address, function(data) {
+        for(var i = 0; i < data.length; i++) {
+            var currentProduct = data[i];
+            var id = currentProduct.id;
+            var categoryId = currentProduct.category.id;
+            var description = currentProduct.description;
+            var name = currentProduct.name;
+            var price = currentProduct.price;
+            add_product(id, name, description, price, categoryId, categoiresList);
+        }
+    });
 }
 
-function add_product(id, name, description, price, category) {
+function add_product(id, name, description, price, categoryId, categoriesList) {
     var tr = document.createElement('tr');
-    var categoryItems = ['Kawa', 'Ciastka', 'Inne'];
     tr.setAttribute('id', 'product_' + id);
-    $(tr).append(add_default_cell(id, 'id', id));
+    // $(tr).append(add_default_cell(id, 'id', id));
     $(tr).append(add_textbox_cell(id, 'name', name));
     $(tr).append(add_textbox_cell(id, 'description', description));
     $(tr).append(add_textbox_cell(id, 'price', price));
-    $(tr).append(add_dropdown_cell(id, 'category', categoryItems, category));
+    $(tr).append(add_dropdown_cell(id, 'category', categoriesList, categoryId));
     $(tr).append(add_default_cell(get_remove_button(id)));
     $('#tbody_products').append(tr);
 }
@@ -25,19 +43,20 @@ function add_default_cell(value) {
     return td;
 }
 
-function add_dropdown_cell(product_id, label, categoryItems, currentCategory) {
+function add_dropdown_cell(product_id, label, categoryItems, currentCategoryId) {
+    console.log(categoryItems)
     var td = document.createElement('td');
     var select = document.createElement('select');
     select.setAttribute('id', 'product_' + product_id + '_' + label);
     select.className = 'input-field';
-    for(var i = 0; i < categoryItems.length; i++) {
-        var current_loop_item = document.createElement('option');
-        current_loop_item.setAttribute('value', categoryItems[i]);
-        $(current_loop_item).html(categoryItems[i]);
-        if (categoryItems[i] === currentCategory) {
-            current_loop_item.setAttribute('selected', 'selected');
+    for(key in categoryItems) {
+        var current_option = document.createElement('option');
+        $(current_option).val(key);
+        $(current_option).html(categoryItems[key].name);
+        if (categoryItems[key].id === currentCategoryId) {
+            current_option.setAttribute('selected', 'selected');
         }
-        select.appendChild(current_loop_item);
+        select.appendChild(current_option);
     }
     td.appendChild(select);
 
@@ -47,22 +66,40 @@ function add_dropdown_cell(product_id, label, categoryItems, currentCategory) {
 
 function add_textbox_cell(product_id, label, value) {
     var td = document.createElement('td');
-    var input = document.createElement('input')
-    input.setAttribute('value', value)
-    input.setAttribute('type', 'text')
-    input.setAttribute('id', 'product_' + product_id + '_' + label)
-    td.appendChild(input)
+    var input = document.createElement('input');
+    input.setAttribute('value', value);
+    input.setAttribute('type', 'text');
+    input.setAttribute('id', 'product_' + product_id + '_' + label);
+    td.appendChild(input);
     return td;
 }
 
 function remove_action(product_id) {
-    var row = $('#product_' + product_id).closest('tr')[0];
-    $(row).fadeToggle();
+    var token = Cookies.get('token');
+    var name = $('#product_' + product_id + 'name');
+    $.ajax({
+        type: 'POST',
+        url: '/backend/cafe/menu/remove',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            token: token,
+            name: name,
+        }),
+        success: function(response) {
+            var row = $('#product_' + product_id).closest('tr')[0];
+            $(row).fadeToggle();
+            done();
+        },
+        error: function() {
+            Materialize.toast('Usuwanie produktu nie powiodło się', 2000);
+        }
+    });
 }
 
 function get_remove_button(product_id) {
     var btn = document.createElement('a');
-    btn.className = 'waves-effect waves-light btn brown done';
+    btn.className = 'waves-effect waves-light btn red done';
     $(btn).html('Usuń')
     btn.setAttribute('onClick', 'remove_action(' + product_id + ')');
     return btn;
