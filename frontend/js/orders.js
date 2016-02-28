@@ -1,6 +1,11 @@
 get_orders();
 
+window.setInterval(function() {
+  get_orders();
+}, 10000);
+
 function realize_order() {
+  thisA = this;
   $.ajax({
     type: 'POST',
     url: '/backend/orders/realize',
@@ -10,7 +15,7 @@ function realize_order() {
       orderId: $(this).closest('tr')[0].firstChild.innerHTML
     }),
     success: function() {
-      done();
+      done(thisA);
     },
     error: function() {
       Materialize.toast('Odznaczenie realizacji zamówienia nie powiodło się.', 2000);
@@ -18,8 +23,8 @@ function realize_order() {
   });
 }
 
-function done() {
-  var row = $(this).closest('tr')[0];
+function done(a) {
+  var row = $(a).closest('tr')[0];
   $(row).fadeToggle();
 }
 
@@ -28,7 +33,7 @@ function get_orders() {
     type: 'GET',
     url: '/backend/orders?token=' + token,
     success: function(response) {
-      console.log(response);
+      remove_orders();
       for (var i=0; i<response.length; ++i) {
         var current = response[i];
         var nr = current.id;
@@ -42,6 +47,10 @@ function get_orders() {
       Materialize.toast('Pobranie zamówień nie powiodło się.', 2000);
     }
   });
+}
+
+function remove_orders() {
+  $('#tbody_orders').empty();
 }
 
 function add_order(nr, date, name, order_list, price) {

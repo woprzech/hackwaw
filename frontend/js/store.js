@@ -47,7 +47,6 @@ function logout() {
   $.ajax({
     type: 'POST',
     url: '/backend/account/logout',
-    dataType: 'json',
     contentType: 'application/json',
     data: JSON.stringify({
       token: token
