@@ -182,14 +182,14 @@ function save_action() {
       update_label(name, name.val());
       update_label(description, description.val());
       update_label(price, price.val());
-      update_label(category, category.val());
+      update_label(category, categoriesList[category.val()].name);
 
       if ($(tr).attr('data-new') !== undefined) {
         $(tr).removeAttr('data-new');
       }
 
-      $(tr).find('.menu_label').css('display', 'none');
-      $(tr).find('.menu_input').css('display', 'inline-block');
+      $(tr).find('.menu_label').css('display', 'inline-block');
+      $(tr).find('.menu_input').css('display', 'none');
     },
     error: function() {
       Materialize.toast('Aktualizacja produktu nie powiodła się.', 2000);
