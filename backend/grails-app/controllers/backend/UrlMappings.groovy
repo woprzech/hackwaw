@@ -31,17 +31,22 @@ class UrlMappings {
 
         "/cafe/menu/addProduct" {
             controller = "Menu"
-            action = "addProduct"
+            action = [POST:  "addProduct"]
         }
 
         "/cafe/menu/update/description" {
             controller = "Menu"
-            action = "updateDescription"
+            action = [POST: "updateDescription"]
+        }
+
+        "/cafe/menu/update/price" {
+            controller = "Menu"
+            action = [POST: "updatePrice"]
         }
 
         "/cafe/menu/remove" {
             controller = "Menu"
-            action = "removeProduct"
+            action = [POST: "removeProduct"]
         }
 
         "/account/login" {
@@ -81,7 +86,7 @@ class UrlMappings {
 
         "/registration" {
             controller = "Registration"
-            action = [POST: "create"]
+            action = [POST: "register"]
         }
 
         "500"(view: '/error')

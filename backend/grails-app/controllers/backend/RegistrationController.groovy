@@ -7,5 +7,6 @@ class RegistrationController implements ExceptionHandler {
 
     def create() {
         registrationService.register(request.JSON.address, request.JSON.cafeName, request.JSON.email, request.JSON.phone)
+        render "OK"
     }
 }
