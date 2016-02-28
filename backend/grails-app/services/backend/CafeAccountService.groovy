@@ -6,7 +6,7 @@ import grails.transaction.Transactional
 class CafeAccountService {
 
     def createAccount(def login, def password, def cafeId) {
-        def cafe = Cafe.findById(Long.valueOf(cafeId))
+        def cafe = Cafe.findById(cafeId)
 
         if (CafeAccount.findByCafe(cafe) == null) {
             def newAccount = new CafeAccount(login: login, password: password, cafe: cafe)
@@ -20,7 +20,9 @@ class CafeAccountService {
     def login(def userName, def password) {
         def account = CafeAccount.findByLogin(userName)
         if (account != null) {
-            if (!account.password.equals(password)) {
+            println password
+            println account.password
+            if (!account.password == password) {
                 throw new Exception("Zle haslo")
             } else {
                 def str = generator((('A'..'Z') + ('0'..'9')).join(), 128)
@@ -36,7 +38,7 @@ class CafeAccountService {
         def account = getUserByToken(currentToken)
         if (account != null) {
             for (int i = 0; i < account.tokens.size(); i++) {
-                if (account.tokens[i].equals(currentToken)) {
+                if (account.tokens[i] == currentToken) {
                     def token = account.tokens[i]
                     account.removeFromTokens(token)
                     token.delete()

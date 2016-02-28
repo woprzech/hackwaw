@@ -7,19 +7,17 @@ class CafeAccountController implements ExceptionHandler {
     CafeAccountService cafeAccountService
 
     def createAccount() {
-        cafeAccountService.createAccount(params.login, params.password, params.cafeId)
+        cafeAccountService.createAccount(request.JSON.login, request.JSON.password, request.JSON.cafeId)
         render "OK"
     }
 
     def login() {
-        def token = cafeAccountService.login(params.login, params.password)
-        session["loggedAccount"] = params.login
+        def token = cafeAccountService.login(request.JSON.login, request.JSON.password)
         render token as JSON
     }
 
     def logout() {
-        cafeAccountService.logout(params.token)
-        session.invalidate()
+        cafeAccountService.logout(request.JSON.token)
         render "OK"
     }
 }
