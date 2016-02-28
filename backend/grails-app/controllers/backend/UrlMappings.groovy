@@ -16,7 +16,7 @@ class UrlMappings {
 
         "/cafe/getMenu" {
             controller = "Cafe"
-            action = "getAllProducts"
+            action = [GET: "getAllProducts", POST: "getAllProductsByToken"]
         }
 
         "/cafe/getAll" {
@@ -31,7 +31,7 @@ class UrlMappings {
 
         "/cafe/menu/addProduct" {
             controller = "Menu"
-            action = [POST:  "addProduct"]
+            action = [POST: "addProduct"]
         }
 
         "/cafe/menu/update/description" {

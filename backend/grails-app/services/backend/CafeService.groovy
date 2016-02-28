@@ -26,7 +26,6 @@ class CafeService {
             def category = Category.findByName(categoryName)
             if (category == null)
                 throw new Exception("Nie znaleziono takiej kategorii")
-//            return cafe.menu.products.findAll(prod -> prod.category == category)
             def products = []
             for (def prod : cafe.menu.products) {
                 if (prod.category == category)
@@ -34,6 +33,13 @@ class CafeService {
             }
             return products
         }
+    }
 
+    def getCafeByToken(def token) {
+        def foundToken = Token.findByToken(token)
+        if (foundToken == null)
+            throw new Exception("Nie znaleziono takiego tokenu")
+
+        return foundToken.cafeAccount.cafe.menu.products
     }
 }

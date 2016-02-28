@@ -32,9 +32,8 @@ class CafeAccountService {
                 }
             } else
                 throw new Exception("Nie znaleziono uzytkownika z takim loginem")
-        } else {
+        } else
             return foundToken
-        }
     }
 
     def logout(def currentToken) {
@@ -74,6 +73,5 @@ class CafeAccountService {
             throw new Exception("Wybrana kawiarnia nie ma możliwości składania zamówień")
         }
         return cafeAccount
-
     }
 }
