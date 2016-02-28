@@ -55,7 +55,7 @@ class CafeController implements ExceptionHandler {
 //        def locations = Location.findByXBetweenAndYBetween(x - rad, x + rad, y - rad, y + rad)
 
 //        for (def loc : locations) {
-//            cafes.add(loc.cafe)
+//            cafes.add(Cafe.findByLocation(loc))
 //        }
 
         render cafes as JSON
