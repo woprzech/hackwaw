@@ -5,7 +5,6 @@ import grails.transaction.Transactional
 @Transactional
 class MenuService {
 
-    // TODO tylko to testowania
     def addProduct(def token, def name, def description, def price, def categoryName) {
         def account = getUserByToken(token)
         if (account != null) {
@@ -26,10 +25,10 @@ class MenuService {
         }
     }
 
-    def updateDescription(def token, def name, def description) {
+    def updateDescription(def token, def productId, def description) {
         def account = (CafeAccount) getUserByToken(token)
         if (account != null) {
-            def product = Product.findByNameAndMenu(name, account.cafe.menu)
+            def product = Product.findByIdAndMenu(productId, account.cafe.menu)
             if (product != null) {
                 product.description = description
             } else {
@@ -40,10 +39,10 @@ class MenuService {
         }
     }
 
-    def updatePrice(def token, def name, def price) {
+    def updatePrice(def token, def productId, def price) {
         def account = (CafeAccount) getUserByToken(token)
         if (account != null) {
-            def product = Product.findByNameAndMenu(name, account.cafe.menu)
+            def product = Product.findByIdAndMenu(productId, account.cafe.menu)
             if (product != null) {
                 product.description = price
             } else {
@@ -54,10 +53,10 @@ class MenuService {
         }
     }
 
-    def removeProduct(def token, def name) {
+    def removeProduct(def token, def productId) {
         def account = getUserByToken(token)
         if (account != null) {
-            def product = Product.findByNameAndMenu(name, account.cafe.menu)
+            def product = Product.findByIdAndMenu(productId, account.cafe.menu)
             if (product != null) {
                 account.cafe.menu.removeFromProducts(product)
                 product.delete()
