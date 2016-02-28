@@ -12,7 +12,7 @@ class CafeAccountController implements ExceptionHandler {
     }
 
     def login() {
-        def token = cafeAccountService.login(request.JSON.login, request.JSON.password)
+        def token = cafeAccountService.login(request.JSON.login, request.JSON.password, request.JSON.token)
         render token as JSON
     }
 

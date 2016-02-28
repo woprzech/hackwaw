@@ -17,21 +17,27 @@ class CafeAccountService {
             throw new Exception("Istnieje konto dla tej restauracji")
     }
 
-    def login(def userName, def password) {
+    def login(def userName, def password, def token) {
         def account = CafeAccount.findByLogin(userName)
-        if (account != null) {
-            println password
-            println account.password
-            if (!account.password == password) {
-                throw new Exception("Zle haslo")
-            } else {
-                def str = generator((('A'..'Z') + ('0'..'9')).join(), 128)
-                def token = new Token(token: str)
-                account.addToTokens(token)
-                return token
-            }
-        } else
-            throw new Exception("Nie znaleziono uzytkownika z takim loginem")
+        if (token == null) {
+            if (account != null) {
+                if (!account.password == password) {
+                    throw new Exception("Zle haslo")
+                } else {
+                    def str = generator((('A'..'Z') + ('0'..'9')).join(), 128)
+                    def newToken = new Token(token: str)
+                    account.addToTokens(newToken)
+                    return newToken
+                }
+            } else
+                throw new Exception("Nie znaleziono uzytkownika z takim loginem")
+        } else {
+            def foundToken = Token.findByToken(token)
+            if (foundToken == null)
+                throw new Exception("Nie znaleziono takiego tokenu")
+            else
+                return foundToken
+        }
     }
 
     def logout(def currentToken) {
