@@ -64,9 +64,15 @@ function logout() {
 
 function request_server_if_logged_in() {
   $.ajax({
-    type: 'GET',
-    url: '/backend/orders?token=' + token,
+    type: 'POST',
+    url: '/backend/account/login',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      token: token
+    }),
     success: function(response) {
+      console.log(response);
       update_content($('#menu_click')[0]);
       navbar_login();
     },

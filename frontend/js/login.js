@@ -8,7 +8,8 @@ function login() {
     contentType: 'application/json',
     data: JSON.stringify({
       login: $('#login').val(),
-      password: $('#password').val()
+      password: $('#password').val(),
+      token: ''
     }),
     success: function(response) {
       console.log(response);
