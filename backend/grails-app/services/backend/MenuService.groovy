@@ -32,11 +32,11 @@ class MenuService {
             if (product != null) {
                 product.description = newDescription
                 product.name = String.valueOf(newName)
-                product.price = newPrice
+                product.price = Long.parseLong(newPrice)
                 product.category = category
                 product.save()
             } else {
-                account.cafe.menu.addToProducts(new Product(name: newName, description: newDescription, price: newPrice, category: category))
+                account.cafe.menu.addToProducts(new Product(name: newName, description: newDescription, price: Long.parseLong(newPrice), category: category))
             }
         } else {
             throw new Exception("Musisz sie najpierw zalogowac")
