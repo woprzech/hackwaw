@@ -34,15 +34,20 @@ class UrlMappings {
             action = [POST: "addProduct"]
         }
 
-        "/cafe/menu/update/description" {
+        "/cafe/menu/product/update" {
             controller = "Menu"
-            action = [POST: "updateDescription"]
+            action = [POST: "updateProduct"]
         }
 
-        "/cafe/menu/update/price" {
-            controller = "Menu"
-            action = [POST: "updatePrice"]
-        }
+//        "/cafe/menu/update/description" {
+//            controller = "Menu"
+//            action = [POST: "updateDescription"]
+//        }
+//
+//        "/cafe/menu/update/price" {
+//            controller = "Menu"
+//            action = [POST: "updatePrice"]
+//        }
 
         "/cafe/menu/remove" {
             controller = "Menu"

@@ -35,7 +35,7 @@ class CafeService {
         }
     }
 
-    def getCafeByToken(def token) {
+    def getMenuByToken(def token) {
         def foundToken = Token.findByToken(token)
         if (foundToken == null)
             throw new Exception("Nie znaleziono takiego tokenu")

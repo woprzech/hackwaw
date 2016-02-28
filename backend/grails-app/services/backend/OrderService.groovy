@@ -11,24 +11,25 @@ class CafeOrderService {
     def createCafeOrder(def userName, def cafeId, def productIds, def orderDate,
                         def receiptionDate) {
         def cafeAccount = cafeAccountService.getCafeAccountByCafeId(cafeId)
+        println userName + " " + cafeId + " " + orderDate
         if (cafeAccount == null) {
             throw new Exception("Kawiarnia nie posiada systemu zamawiania")
         }
         def totalPrice = 0
         def orderProducts = []
-        for (def it : productIds) {
-            def product = Product.findById(it.id)
-            if (product == null) {
-                throw new Exception("produkt nie istnieje")
-            }
-            orderProducts << product
-            totalPrice += product.price
-        }
-        def order = new CafeOrder(cafeAccount: cafeAccount, userName: userName, products: orderProducts,
-                orderDate: orderDate, receiptionDate: receiptionDate, totalPrice: totalPrice)
-        order.save()
+//        for (def it : productIds) {
+//            def product = Product.findById(it.id)
+//            if (product == null) {
+//                throw new Exception("produkt nie istnieje")
+//            }
+//            orderProducts << product
+//            totalPrice += product.price
+//        }
+        println userName
+        def order = new CafeOrder(cafeAccount: cafeAccount, userName: userName, orderDate: orderDate, receiptionDate: receiptionDate, totalPrice: totalPrice)
+        println order.userName
         cafeAccount.addToOrders(order)
-
+        println order.userName
     }
 
     def getCafeOrdersByCafeId(def token) {

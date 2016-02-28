@@ -25,33 +25,33 @@ class MenuService {
         }
     }
 
-    def updateDescription(def token, def productId, def description) {
-        def account = (CafeAccount) getUserByToken(token)
-        if (account != null) {
-            def product = Product.findByIdAndMenu(productId, account.cafe.menu)
-            if (product != null) {
-                product.description = description
-            } else {
-                throw new Exception("Nie znaleziono takiego produktu")
-            }
-        } else {
-            throw new Exception("Musisz sie najpierw zalogowac")
-        }
-    }
-
-    def updatePrice(def token, def productId, def price) {
-        def account = (CafeAccount) getUserByToken(token)
-        if (account != null) {
-            def product = Product.findByIdAndMenu(productId, account.cafe.menu)
-            if (product != null) {
-                product.description = price
-            } else {
-                throw new Exception("Nie znaleziono takiego produktu")
-            }
-        } else {
-            throw new Exception("Musisz sie najpierw zalogowac")
-        }
-    }
+//    def updateDescription(def token, def productId, def description) {
+//        def account = (CafeAccount) getUserByToken(token)
+//        if (account != null) {
+//            def product = Product.findByIdAndMenu(productId, account.cafe.menu)
+//            if (product != null) {
+//                product.description = description
+//            } else {
+//                throw new Exception("Nie znaleziono takiego produktu")
+//            }
+//        } else {
+//            throw new Exception("Musisz sie najpierw zalogowac")
+//        }
+//    }
+//
+//    def updatePrice(def token, def productId, def price) {
+//        def account = (CafeAccount) getUserByToken(token)
+//        if (account != null) {
+//            def product = Product.findByIdAndMenu(productId, account.cafe.menu)
+//            if (product != null) {
+//                product.description = price
+//            } else {
+//                throw new Exception("Nie znaleziono takiego produktu")
+//            }
+//        } else {
+//            throw new Exception("Musisz sie najpierw zalogowac")
+//        }
+//    }
 
     def removeProduct(def token, def productId) {
         def account = getUserByToken(token)
@@ -60,6 +60,27 @@ class MenuService {
             if (product != null) {
                 account.cafe.menu.removeFromProducts(product)
                 product.delete()
+            } else {
+                throw new Exception("Nie znaleziono takiego produktu")
+            }
+        } else {
+            throw new Exception("Musisz sie najpierw zalogowac")
+        }
+    }
+
+    def updateProduct(def token, def productId, def newName, def newDescription, def newPrice, def newCategoryId) {
+        def account = (CafeAccount) getUserByToken(token)
+        def category = Category.findById(newCategoryId)
+        if (category == null)
+            throw new Exception("Nie znaleziono takiej kategorii")
+
+        if (account != null) {
+            def product = Product.findByIdAndMenu(productId, account.cafe.menu)
+            if (product != null) {
+                product.description = newDescription
+                product.name = newName
+                product.price = new BigDecimal(newPrice)
+                product.category = category
             } else {
                 throw new Exception("Nie znaleziono takiego produktu")
             }

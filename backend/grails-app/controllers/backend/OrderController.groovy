@@ -1,8 +1,9 @@
 package backend
 
+import exception.ExceptionHandler
 import grails.converters.JSON
 
-class CafeOrderController {
+class CafeOrderController implements ExceptionHandler {
     CafeOrderService cafeOrderService
 
     def newOrder() {
