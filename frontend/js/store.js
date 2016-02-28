@@ -2,6 +2,7 @@
 var cur_page = '';
 var token = '';
 var cafeid = '';
+var intervalid = '';
 
 // functions
 function change_page() {
@@ -10,6 +11,11 @@ function change_page() {
 
 function update_content(page_content) {
   if (cur_page !== page_content) {
+    if (intervalid !== '') {
+      window.clearInterval(intervalid);
+      intervalid = '';
+    }
+
     $(cur_page).removeClass('active');
     cur_page = page_content;
     $(page_content).addClass('active');

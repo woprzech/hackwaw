@@ -1,8 +1,11 @@
 get_orders();
+var intervalid = set_interval();
 
-window.setInterval(function() {
-  get_orders();
-}, 10000);
+function set_interval() {
+  return window.setInterval(function() {
+    get_orders();
+  }, 10000);
+}
 
 function realize_order() {
   thisA = this;

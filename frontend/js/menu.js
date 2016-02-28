@@ -79,7 +79,6 @@ function remove_action(product_id) {
     $.ajax({
         type: 'POST',
         url: '/backend/cafe/menu/remove',
-        dataType: 'json',
         contentType: 'application/json',
         data: JSON.stringify({
             'token': token,
