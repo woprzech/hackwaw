@@ -8,7 +8,7 @@ class CafeOrder {
     Date orderDate
     Date receiptionDate
     BigDecimal totalPrice
-    static fetchMode = [positions: 'eager']
+//    static fetchMode = [positions: 'eager']
 
 
     static constraints = {
