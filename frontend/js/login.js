@@ -2,8 +2,14 @@ $('#login_btn').on('click', login);
 
 function login() {
   $.ajax({
-    type: 'GET',
-    url: '/backend/account/login?login=' + $('#login').val() + '&password=' + $('#password').val(),
+    type: 'POST',
+    url: '/backend/account/login',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      login: $('#login').val(),
+      password: $('#password').val()
+    }),
     success: function(response) {
       console.log(response);
       token = response.token;

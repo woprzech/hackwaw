@@ -45,8 +45,13 @@ function logout_callback() {
 
 function logout() {
   $.ajax({
-    type: 'GET',
-    url: '/backend/account/logout?token=' + token,
+    type: 'POST',
+    url: '/backend/account/logout',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      token: token
+    }),
     success: function(response) {
       logout_callback();
     },
