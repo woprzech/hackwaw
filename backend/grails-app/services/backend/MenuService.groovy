@@ -35,7 +35,7 @@ class MenuService {
                 product.category = category
                 product.save()
             } else {
-                account.cafe.menu.addToProducts(new Product(name: name, description: description, price: new BigDecimal(price), category: category))
+                account.cafe.menu.addToProducts(new Product(name: newName, description: newDescription, price: new BigDecimal(newPrice), category: category))
             }
         } else {
             throw new Exception("Musisz sie najpierw zalogowac")
