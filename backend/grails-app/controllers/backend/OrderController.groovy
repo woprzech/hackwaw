@@ -12,7 +12,9 @@ class CafeOrderController {
     }
 
     def getOrders() {
-        render cafeOrderService.getCafeOrdersByCafeId(params.token) as JSON
+        JSON.use('deep') {
+            render cafeOrderService.getCafeOrdersByCafeId(params.token) as JSON
+        }
     }
 
     def remOrder() {

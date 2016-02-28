@@ -36,7 +36,15 @@ class CafeOrderService {
         if (foundToken == null) {
             throw new Exception("Nie jesteś zalogowanym użytkownikiem")
         }
-        return CafeOrder.findByCafeAccount(((Token) foundToken).cafeAccount)
+        System.out.println(((Token) foundToken).cafeAccount)
+        System.out.println(CafeOrder.findByCafeAccount(((Token) foundToken).cafeAccount))
+        def orders = CafeOrder.findAllByCafeAccount(((Token) foundToken).cafeAccount)
+
+        for (def order : orders) {
+//            System.out.println(order.positions)
+//            order.setPositions(CafeOrderPosition.findAllByOrder(order))
+        }
+        return orders
     }
 
     def realizeOrder(def token, def orderId) {
@@ -50,7 +58,15 @@ class CafeOrderService {
             throw new Exception("Zamówienie nie istnieje")
         }
         order.cafeAccount.removeFromOrders(order)
+        def positions = CafeOrderPosition.findAllByOrder(order)
+//        order.removeFromPositions(positions)
+        for (def position : positions) {
+            position.delete()
+        }
 //        order.removeFromProducts(order.products)
+
+//        order.removeFromPositions(order.positions)
+//        CafeOrderPosition.
         order.delete()
 
     }

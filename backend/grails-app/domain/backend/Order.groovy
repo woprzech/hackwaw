@@ -4,10 +4,11 @@ class CafeOrder {
 
     static belongsTo = [cafeAccount: CafeAccount]
     String userName
-    static hasMany = [products: Product]
+    static hasMany = [positions: CafeOrderPosition]
     Date orderDate
     Date receiptionDate
     BigDecimal totalPrice
+    static fetchMode = [positions: 'eager']
 
 
     static constraints = {
