@@ -4,13 +4,12 @@ function realize_order() {
   $.ajax({
     type: 'POST',
     url: '/backend/orders/realize',
-    dataType: 'json',
     contentType: 'application/json',
     data: JSON.stringify({
       token: token,
       orderId: $(this).closest('tr')[0].firstChild.innerHTML
     }),
-    success: function(response) {
+    success: function() {
       done();
     },
     error: function() {

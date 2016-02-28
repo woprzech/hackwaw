@@ -1,19 +1,18 @@
-$('#register_btn').on('click', register);
-$('#registration_confirmation_ok').on('click', return_to_main);
+$('#register_btn').unbind('click').on('click', register);
+$('#registration_confirmation_ok').unbind('click').on('click', return_to_main);
 
 function register() {
   $.ajax({
     type: 'POST',
     url: '/backend/registration',
-    dataType: 'json',
     contentType: 'application/json',
     data: JSON.stringify({
       email: $('#email').val(),
       phone: $('#phone').val(),
-      cafename: $('#name').val(),
+      cafeName: $('#name').val(),
       address: $('#address').val()
     }),
-    success: function(response) {
+    success: function() {
       $('#registration_confirmation').openModal();
     },
     error: function() {
