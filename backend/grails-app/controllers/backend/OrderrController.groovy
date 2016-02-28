@@ -17,10 +17,9 @@ class OrderrController implements ExceptionHandler {
     }
 
     def getOrders() {
-//        JSON.use('deep') {
-//            render orderrService.getOrders(request.JSON.token) as JSON
-//        }
-        println "get"
-        render orderrService.getOrders(params.token) as JSON
+        JSON.use('deep') {
+            render orderrService.getOrders(params.token) as JSON
+        }
+//        render orderrService.getOrders(params.token) as JSON
     }
 }
