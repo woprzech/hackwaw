@@ -16,10 +16,7 @@ class CafeOrderService {
         }
         def totalPrice = 0
         def orderProducts = []
-        def temp = []
-//        temp = productIds
         for (def it : productIds) {
-            System.out.println("to mam: " + it.id)
             def product = Product.findById(it.id)
             if (product == null) {
                 throw new Exception("produkt nie istnieje")
@@ -27,20 +24,10 @@ class CafeOrderService {
             orderProducts << product
             totalPrice += product.price
         }
-        System.out.println(orderProducts)
-//        System.out.println(temp)
-//        temp.each { it ->
-//            System.out.println("to mam: " + it)
-//            def product = Product.findById(it)
-//            orderProducts << product
-//            totalPrice += product.price
-//        }
-        try {
-            cafeAccount.addToOrders(new CafeOrder(cafeAccount: cafeAccount, userName: userName, products: orderProducts,
-                    orderDate: orderDate, receiptionDate: receiptionDate, totalPrice: totalPrice))
-        } catch (Exception e) {
-            System.out.println("oops")
-        }
+        def order = new CafeOrder(cafeAccount: cafeAccount, userName: userName, products: orderProducts,
+                orderDate: orderDate, receiptionDate: receiptionDate, totalPrice: totalPrice)
+        order.save()
+        cafeAccount.addToOrders(order)
 
     }
 
@@ -49,7 +36,6 @@ class CafeOrderService {
         if (foundToken == null) {
             throw new Exception("Nie jesteś zalogowanym użytkownikiem")
         }
-//        return ((Token) foundToken).cafeAccount.getOrders()
         return CafeOrder.findByCafeAccount(((Token) foundToken).cafeAccount)
     }
 
