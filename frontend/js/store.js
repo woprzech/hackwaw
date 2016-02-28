@@ -63,6 +63,7 @@ function request_server_if_logged_in() {
     url: '/backend/orders?token=' + token,
     success: function(response) {
       update_content($('#menu_click')[0]);
+      navbar_login();
     },
     error: function() {
       logout_callback();
