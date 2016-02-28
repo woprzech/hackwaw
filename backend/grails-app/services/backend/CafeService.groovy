@@ -15,11 +15,25 @@ class CafeService {
         }
     }
 
-    def getMenu(def cafeId) {
+    def getMenu(def cafeId, def categoryName) {
         def cafe = Cafe.findById(cafeId)
-        if(cafe == null)
+        if (cafe == null)
             throw new Exception("Nie znaleziono takiej kawiarni")
 
-        return cafe.menu
+        if (categoryName == null) {
+            return cafe.menu.products
+        } else {
+            def category = Category.findByName(categoryName)
+            if (category == null)
+                throw new Exception("Nie znaleziono takiej kategorii")
+//            return cafe.menu.products.findAll(prod -> prod.category == category)
+            def products = []
+            for (def prod : cafe.menu.products) {
+                if (prod.category == category)
+                    products.add(prod)
+            }
+            return products
+        }
+
     }
 }
