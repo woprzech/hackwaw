@@ -6,7 +6,7 @@ class OrderrController implements ExceptionHandler {
     OrderrService orderrService
 
     def create() {
-        orderrService.createOrder(request.JSON.cafeId, request.JSON.userName, request.JSON.productIds)
+        orderrService.createOrder(request.JSON.cafeId, request.JSON.userName, request.JSON.productIds, request.JSON.minutes)
         render "OK"
     }
 }
