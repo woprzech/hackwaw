@@ -28,9 +28,10 @@ class OrderrService {
             throw new Exception("Nie udalo sie zapisac zmian w koncie")
     }
 
-    def delete(def token, def orderId) {
+    def removeOrder(def token, def orderId) {
         def account = (CafeAccount) getUserByToken(token)
         if (account != null) {
+            println orderId
             def order = Orderr.findById(orderId)
             if (order != null) {
                 account.removeFromOrderrs(order)
@@ -54,7 +55,7 @@ class OrderrService {
 
     def getUserByToken(def currentToken) {
         def token = Token.findByToken(currentToken)
-        if(token == null){
+        if (token == null) {
             throw new Exception("Musisz się najpierw zalogować")
         }
         def account = token.cafeAccount
