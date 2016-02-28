@@ -64,6 +64,16 @@ class UrlMappings {
             action = [POST: "newOrder"]
         }
 
+        "/orders" {
+            controller = "Orderr"
+            action = [GET: "getOrders"]
+        }
+
+        "/order/realize" {
+            controller = "Orderr"
+            action = [POST: "remOrder"]
+        }
+
         "/categories/get" {
             controller = "Category"
             action = [GET: "getAll"]
