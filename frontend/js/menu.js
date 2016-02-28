@@ -1,5 +1,7 @@
-load_products();
+$('#add_empty').on('click', add_empty_product);
+var menu_last_id = 0;
 
+load_products();
 
 function load_products() {
     var token = Cookies.get('token');
@@ -20,9 +22,17 @@ function load_products() {
             var description = currentProduct.description;
             var name = currentProduct.name;
             var price = currentProduct.price;
+            if (menu_last_id < id) {
+              menu_last_id = id;
+            }
             add_product(id, name, description, price, categoryId, categoiresList);
         }
     });
+}
+
+function add_empty_product() {
+  menu_last_id++;
+  add_product(menu_last_id, '', '', '', '', '');
 }
 
 function add_product(id, name, description, price, categoryId, categoriesList) {

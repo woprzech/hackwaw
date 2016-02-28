@@ -86,8 +86,6 @@ function add_types(name, order_list) {
 
   var span = document.createElement('span');
   $(span).html(name);
-  var ul1 = document.createElement('ul');
-  ul1.className = 'collection';
 
   var ul = document.createElement('ul');
   ul.className = 'collection';
