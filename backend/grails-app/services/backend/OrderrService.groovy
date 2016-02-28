@@ -5,15 +5,16 @@ import grails.transaction.Transactional
 @Transactional
 class OrderrService {
 
-    def createOrder(def cafeId, def name, def productsIds) {
-        def account = CafeAccount.findByCafe(Cafe.findById(cafeId))
+    def createOrder(def cafeId, def name, def productsIds, def minutes) {
+        def cafe = Cafe.findById(cafeId)
+        if (cafe == null)
+            throw new Exception("Nie znaleziono takiej kawiarni")
+        def account = CafeAccount.findByCafe(cafe)
         if (account == null)
-            throw new Exception("Nie ma takiej kawiarni!")
+            throw new Exception("Nie ma konta dla takiej kawiarni")
 
         def newOrder = new Orderr(userName: name)
-        println newOrder.userName
-        println newOrder.receiptionDate
-        println newOrder.orderDate
+        newOrder.receiptionDate.setMinutes(newOrder.orderDate.getMinutes() + minutes)
         if (!newOrder.save(flush: true))
             throw new Exception("Nie udalo sie zapisac zamowienia")
 
