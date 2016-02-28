@@ -120,11 +120,10 @@ function add_textbox_cell(name, value) {
 
 function remove_action() {
   var tr = $(this).closest('tr')[0];
-  var name = $(tr).find('.name');
+  var id = $(tr).find('.id').text();
 
   if ($(tr).attr('data-new') !== undefined) {
     $(tr).fadeToggle();
-    $(tr).remove();
     return;
   }
 
@@ -134,10 +133,10 @@ function remove_action() {
     contentType: 'application/json',
     data: JSON.stringify({
       'token': token,
-      'name': name,
+      'productId': id,
     }),
     success: function(response) {
-      done();
+      $(tr).fadeToggle();
     },
     error: function() {
       Materialize.toast('Usuwanie produktu nie powiodło się', 2000);
@@ -175,7 +174,7 @@ function save_action() {
       name: name.val(),
       description: description.val(),
       price: price.val(),
-      categoryId: category.val()
+      categoryId: parseInt(category.val()) + 1
     }),
     success: function(data) {
       update_label(id, id.text());
@@ -183,6 +182,7 @@ function save_action() {
       update_label(description, description.val());
       update_label(price, price.val());
       update_label(category, categoriesList[category.val()].name);
+      console.log(categoriesList[category.val()].name)
 
       if ($(tr).attr('data-new') !== undefined) {
         $(tr).removeAttr('data-new');
