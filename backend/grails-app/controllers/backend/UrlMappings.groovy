@@ -79,6 +79,11 @@ class UrlMappings {
             action = [GET: "getAll"]
         }
 
+        "/registration" {
+            controller = "Registration"
+            action = [POST: "create"]
+        }
+
         "500"(view: '/error')
         "404"(view: '/notFound')
     }
