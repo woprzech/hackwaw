@@ -1,4 +1,4 @@
-add_order_example();
+get_orders();
 
 $('.done').each(function() {
   $(this).on("click", done);
@@ -9,13 +9,17 @@ function done() {
   $(row).fadeToggle();
 }
 
-function add_order_example() {
-  var date = new Date(2016, 02, 27, 16, 01, 0, 0);
-  var date2 = date;
-  date2.setMinutes(date.getMinutes() + 2);
-
-  add_order(1, date, 'Caffe Latte', 10.9);
-  add_order(2, date2, 'Flat White', 8.99);
+function get_orders() {
+  $.ajax({
+    type: 'GET',
+    url: '/backend/orders?token=' + token,
+    success: function(response) {
+      console.log(response)
+    },
+    error: function() {
+      Materialize.toast('Logowanie nie powiodło się.', 2000);
+    }
+  });
 }
 
 function add_order(nr, date, type, price) {
