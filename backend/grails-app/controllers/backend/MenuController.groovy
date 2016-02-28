@@ -26,7 +26,7 @@ class MenuController implements ExceptionHandler {
     }
 
     def updateProduct() {
-        menuService.updateProduct(request.JSON.token, request.JSON.productId, request.JSON.name, request.JSON.desciption, request.JSON.price, request.JSON.categoryId)
+        menuService.updateProduct(request.JSON.token, request.JSON.productId, request.JSON.name, request.JSON.description, request.JSON.price, request.JSON.categoryId)
         render "OK"
     }
 }

@@ -2,7 +2,7 @@ package backend
 
 class Product {
     Category category
-    BigDecimal price
+    long price
     String name
     String description
 

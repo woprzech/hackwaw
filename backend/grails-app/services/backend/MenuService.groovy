@@ -23,19 +23,20 @@ class MenuService {
     def updateProduct(def token, def productId, def newName, def newDescription, def newPrice, def newCategoryId) {
         def account = (CafeAccount) getUserByToken(token)
         def category = Category.findById(newCategoryId)
+        println newCategoryId
         if (category == null)
             throw new Exception("Nie znaleziono takiej kategorii")
 
         if (account != null) {
             def product = Product.findByIdAndMenu(productId, account.cafe.menu)
             if (product != null) {
-                product.description = newDescription
-                product.name = newName
-                product.price = new BigDecimal(newPrice)
+                product.description = newDescription[0]
+                product.name = newName[0]
+                product.price = newPrice[0]
                 product.category = category
                 product.save()
             } else {
-                account.cafe.menu.addToProducts(new Product(name: newName, description: newDescription, price: new BigDecimal(newPrice), category: category))
+                account.cafe.menu.addToProducts(new Product(name: newName[0], description: newDescription[0], price: newPrice[0], category: category))
             }
         } else {
             throw new Exception("Musisz sie najpierw zalogowac")
