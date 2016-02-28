@@ -27,6 +27,21 @@ class CafeOrderService {
             throw new Exception("Nie jesteś zalogowanym użytkownikiem")
         }
         return ((Token) foundToken).cafeAccount.getOrders()
+    }
+
+    def realizeOrder(def token, def orderId) {
+        System.out.println(token)
+        def foundToken = Token.findByToken(token)
+        if (foundToken == null) {
+            throw new Exception("Nie jesteś zalogowanym użytkownikiem")
+        }
+        def order = CafeOrder.findById(orderId)
+        if (order == null) {
+            throw new Exception("Zamówienie nie istnieje")
+        }
+        order.cafeAccount.removeFromOrders(order)
+        order.removeFromProducts(order.products)
+        order.delete()
 
     }
 
