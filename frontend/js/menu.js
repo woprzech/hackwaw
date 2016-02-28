@@ -75,7 +75,6 @@ function add_textbox_cell(product_id, label, value) {
 
 function remove_action(product_id) {
     var token = Cookies.get('token');
-    var name = $('#product_' + product_id + '_name').val();
     $.ajax({
         type: 'POST',
         url: '/backend/cafe/menu/remove',
@@ -83,7 +82,7 @@ function remove_action(product_id) {
         contentType: 'application/json',
         data: JSON.stringify({
             'token': token,
-            'name': name,
+            'productId': product_id,
         }),
         success: function(response) {
             var row = $('#product_' + product_id).closest('tr')[0];
