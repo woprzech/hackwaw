@@ -29,32 +29,51 @@ function navbar_login() {
   });
 }
 
+function logout_callback() {
+  update_content($('#login_click')[0]);
+  Cookies.remove('token');
+  Cookies.remove('cafeid');
+  token = '';
+  cafeid = '';
+  $('.loggedout').each(function() {
+    this.style.display = 'block';
+  });
+  $('.loggedin').each(function() {
+    this.style.display = 'none';
+  });
+}
+
 function logout() {
   $.ajax({
     type: 'GET',
     url: '/backend/account/logout?token=' + token,
     success: function(response) {
-      Cookies.remove('token');
-      Cookies.remove('cafeid');
-      token = '';
-      cafeid = '';
-      $('.loggedout').each(function() {
-        this.style.display = 'block';
-      });
-      $('.loggedin').each(function() {
-        this.style.display = 'none';
-      });
-      update_content($('#login_click')[0]);
+      logout_callback();
     },
     error: function() {
       Materialize.toast('Wylogowanie nie powiodło się.', 2000);
+      logout_callback();
+    }
+  });
+}
+
+function request_server_if_logged_in() {
+  $.ajax({
+    type: 'GET',
+    url: '/backend/orders?token=' + token,
+    success: function(response) {
+      update_content($('#menu_click')[0]);
+      navbar_login();
+    },
+    error: function() {
+      logout_callback();
     }
   });
 }
 
 function login_checker() {
   if (token !== '') {
-    update_content($('#menu_click')[0]);
+    request_server_if_logged_in();
   } else {
     update_content($('#login_click')[0]);
   }
@@ -86,7 +105,9 @@ $(document).ready(function() {
   if (Cookies.get('cafeid')) {
     token = Cookies.get('token');
     cafeid = Cookies.get('cafeid');
-    navbar_login();
+    if (get_url_param('action') !== 'register') {
+      navbar_login();
+    }
   }
 
   $('#login_click').on('click', change_page);

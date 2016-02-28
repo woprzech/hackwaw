@@ -5,8 +5,9 @@ function login() {
     type: 'GET',
     url: '/backend/account/login?login=' + $('#login').val() + '&password=' + $('#password').val(),
     success: function(response) {
+      console.log(response);
       token = response.token;
-      cafeid = response.id;
+      cafeid = response.cafeAccount.id;
       Cookies.set('token', token);
       Cookies.set('cafeid', cafeid);
       navbar_login();

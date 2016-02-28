@@ -1,21 +1,50 @@
-add_order_example();
+get_orders();
 
-$('.done').each(function() {
-  $(this).on("click", done);
-});
+function realize_order() {
+  $.ajax({
+    type: 'POST',
+    url: '/backend/orders/realize',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify({
+      token: token,
+      orderId: $(this).closest('tr')[0].firstChild.innerHTML
+    }),
+    success: function(response) {
+      done();
+    },
+    error: function() {
+      Materialize.toast('Odznaczenie realizacji zamówienia nie powiodło się.', 2000);
+    }
+  });
+}
 
 function done() {
   var row = $(this).closest('tr')[0];
   $(row).fadeToggle();
 }
 
-function add_order_example() {
-  var date = new Date(2016, 02, 27, 16, 01, 0, 0);
-  var date2 = date;
-  date2.setMinutes(date.getMinutes() + 2);
+function get_orders() {
+  $.ajax({
+    type: 'GET',
+    url: '/backend/orders?token=' + token,
+    success: function(response) {
+      for (var i=0; i<response.length; ++i) {
+        var current = response[i];
+        var nr = current.id;
+        var date = new Date(current.orderDate.replace( /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z/, "$3/$2/$1 $4:$5:$6"));
+        var type = '';
+        for (var j=0; j<current.products.length; ++j) {
 
-  add_order(1, date, 'Caffe Latte', 10.9);
-  add_order(2, date2, 'Flat White', 8.99);
+        }
+        var price = current.totalPrice;
+        add_order(nr, date, type, price);
+      }
+    },
+    error: function() {
+      Materialize.toast('Pobranie zamówień nie powiodło się.', 2000);
+    }
+  });
 }
 
 function add_order(nr, date, type, price) {
@@ -52,6 +81,7 @@ function get_button() {
   btn.className = 'waves-effect waves-light btn brown done';
   $(btn).html('Zamówienie zrealizowane')
   $(td).append(btn);
+  $(btn).on('click', realize_order);
 
   return td;
 }

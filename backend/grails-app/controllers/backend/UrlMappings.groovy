@@ -46,17 +46,17 @@ class UrlMappings {
 
         "/account/login" {
             controller = "CafeAccount"
-            action = "login"
+            action = [POST: "login"]
         }
 
         "/account/logout" {
             controller = "CafeAccount"
-            action = "logout"
+            action = [POST: "logout"]
         }
 
         "/account/create" {
             controller = "CafeAccount"
-            action = "createAccount"
+            action = [POST: "createAccount"]
         }
 
         "/order/create" {
@@ -72,6 +72,11 @@ class UrlMappings {
         "/orders/realize" {
             controller = "CafeOrder"
             action = [POST: "remOrder"]
+        }
+
+        "categories/get" {
+            controller = "Category"
+            action = [GET: "getAll"]
         }
 
         "500"(view: '/error')

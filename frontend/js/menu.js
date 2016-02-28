@@ -3,14 +3,14 @@ add_product_example();
 
 function add_product_example() {
     add_product(1, 'abc', 'Caffe Latte', 10.9, "Kawa");
-    add_product(2, 'abc', 'Caffe Latte', 10.9, "Kawa");
+    add_product(2, 'abc', 'Caffe Latte', 10.9, "Inne");
 }
 
 function add_product(id, name, description, price, category) {
     var tr = document.createElement('tr');
     var categoryItems = ['Kawa', 'Ciastka', 'Inne'];
     tr.setAttribute('id', 'product_' + id);
-    $(tr).append(add_textbox_cell(id, 'id', id));
+    $(tr).append(add_default_cell(id, 'id', id));
     $(tr).append(add_textbox_cell(id, 'name', name));
     $(tr).append(add_textbox_cell(id, 'description', description));
     $(tr).append(add_textbox_cell(id, 'price', price));
@@ -30,15 +30,11 @@ function add_dropdown_cell(product_id, label, categoryItems, currentCategory) {
     var select = document.createElement('select');
     select.setAttribute('id', 'product_' + product_id + '_' + label);
     select.className = 'input-field';
-    var selected_item = document.createElement('option');
-    selected_item.setAttribute('value', currentCategory);
-    selected_item.innerHTML = currentCategory;
-    select.appendChild(selected_item); // make sure, that current element is the first option
-    for(item in categoryItems) {
+    for(var i = 0; i < categoryItems.length; i++) {
         var current_loop_item = document.createElement('option');
-        current_loop_item.setAttribute('value', item);
-        current_loop_item.innerHTML = item;
-        if (item === currentCategory) {
+        current_loop_item.setAttribute('value', categoryItems[i]);
+        $(current_loop_item).html(categoryItems[i]);
+        if (categoryItems[i] === currentCategory) {
             current_loop_item.setAttribute('selected', 'selected');
         }
         select.appendChild(current_loop_item);
@@ -46,14 +42,16 @@ function add_dropdown_cell(product_id, label, categoryItems, currentCategory) {
     td.appendChild(select);
 
     var label = document.createElement('label');
-    $(label).val('Wybierz')
     return td;
 }
 
 function add_textbox_cell(product_id, label, value) {
     var td = document.createElement('td');
-    td.setAttribute('id', 'product_' + product_id + '_' + label)
-    $(td).html(value);
+    var input = document.createElement('input')
+    input.setAttribute('value', value)
+    input.setAttribute('type', 'text')
+    input.setAttribute('id', 'product_' + product_id + '_' + label)
+    td.appendChild(input)
     return td;
 }
 
