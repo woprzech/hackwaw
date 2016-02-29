@@ -7,15 +7,15 @@ load_products();
 function load_products() {
   var token = Cookies.get('token');
   var cafe_id = Cookies.get('cafeid');
-  var address = '/backend/cafe/getMenu?cafeId=' + cafe_id + '&token=' + token;
-  var categoriesAddress = '/backend/categories/get?cafeId=' + cafe_id + '&token=' + token;
+  var address = '../backend/cafe/getMenu?cafeId=' + cafe_id + '&token=' + token;
+  var categoriesAddress = '../backend/categories/get?cafeId=' + cafe_id + '&token=' + token;
 
   $.getJSON(categoriesAddress, function(data) {
     categoriesList = data;
   });
   $.ajax({
     type: 'POST',
-    url: '/backend/cafe/getMenu',
+    url: '../backend/cafe/getMenu',
     dataType: 'json',
     contentType: 'application/json',
     data: JSON.stringify({
@@ -129,7 +129,7 @@ function remove_action() {
 
   $.ajax({
     type: 'POST',
-    url: '/backend/cafe/menu/remove',
+    url: '../backend/cafe/menu/remove',
     contentType: 'application/json',
     data: JSON.stringify({
       'token': token,
@@ -166,7 +166,7 @@ function save_action() {
 
   $.ajax({
     type: 'POST',
-    url: '/backend/cafe/menu/product/update',
+    url: '../backend/cafe/menu/product/update',
     contentType: 'application/json',
     data: JSON.stringify({
       token: token,

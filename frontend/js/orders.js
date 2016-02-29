@@ -11,7 +11,7 @@ function realize_order() {
   thisA = this;
   $.ajax({
     type: 'POST',
-    url: '/backend/order/realize',
+    url: '../backend/order/realize',
     contentType: 'application/json',
     data: JSON.stringify({
       token: token,
@@ -34,13 +34,13 @@ function done(a) {
 function get_orders() {
   $.ajax({
     type: 'GET',
-    url: '/backend/orders?token=' + token,
+    url: '../backend/orders?token=' + token,
     success: function(response) {
       remove_orders();
       for (var i=0; i<response.length; ++i) {
         var current = response[i];
         var nr = current.id;
-        var date = new Date(current.orderDate.replace( /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z/, "$1/$2/$3 $4:$5:$6"));
+        var date = new Date(current.orderDate.replace( /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z/, '$1/$2/$3 $4:$5:$6'));
         var name = current.userName;
         var price = current.totalPrice;
         add_order(nr, date, name, current.positions, price);

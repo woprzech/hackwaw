@@ -20,8 +20,8 @@ function update_content(page_content) {
     cur_page = page_content;
     $(page_content).addClass('active');
     page = page_content.id.substr(0, page_content.id.lastIndexOf('_'));
-    $('#page_content').load("/store/" + page + '.html', function() {
-      $.getScript("/js/" + page + ".js");
+    $('#page_content').load('../store/' + page + '.html', function() {
+      $.getScript('../js/' + page + '.js');
     });
   }
 }
@@ -52,7 +52,7 @@ function logout_callback() {
 function logout() {
   $.ajax({
     type: 'POST',
-    url: '/backend/account/logout',
+    url: '../backend/account/logout',
     contentType: 'application/json',
     data: JSON.stringify({
       token: token
@@ -70,7 +70,7 @@ function logout() {
 function request_server_if_logged_in() {
   $.ajax({
     type: 'POST',
-    url: '/backend/account/login',
+    url: '../backend/account/login',
     dataType: 'json',
     contentType: 'application/json',
     data: JSON.stringify({

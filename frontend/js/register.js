@@ -22,5 +22,5 @@ function register() {
 }
 
 function return_to_main() {
-  window.location.href = '/';
+  window.location.href = '../';
 }

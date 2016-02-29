@@ -3,7 +3,7 @@ $('#login_btn').on('click', login);
 function login() {
   $.ajax({
     type: 'POST',
-    url: '/backend/account/login',
+    url: '../backend/account/login',
     dataType: 'json',
     contentType: 'application/json',
     data: JSON.stringify({
