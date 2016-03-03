@@ -39,7 +39,7 @@ class UrlMappings {
             action = [POST: "create"]
         }
 
-        "/cafe/menu/remove" {
+        "/cafe/menu/product/remove" {
             controller = "Menu"
             action = [POST: "removeProduct"]
         }
@@ -74,7 +74,7 @@ class UrlMappings {
             action = [POST: "remOrder"]
         }
 
-        "/categories/get" {
+        "/categories" {
             controller = "Category"
             action = [GET: "getAll"]
         }
