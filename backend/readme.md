@@ -3,7 +3,7 @@ Dokumentacja api
 
 | Opis      | URL       | typ | params  | return|
 |-----------|-----------|------|---------| ----------|
-| Pobranie wszystkich kawiarni    | /cafe/getAll         |GET| - | JSON
+| Pobranie wszystkich kawiarni    | /cafes         |GET| - | JSON
 |Znalezienie kawiarni w okolicy | /cafe/findByLocation | POST| userX, userY, rad(km)|JSON
 |Pobranie menu | /cafe/getMenu | GET/POST | (cafeId, category)/(token) | JSON
 |Aktualizacja produktu| /cafe/menu/product/update | POST| token, productId, name, description, price, categoryId| "OK"

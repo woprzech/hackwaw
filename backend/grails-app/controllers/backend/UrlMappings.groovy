@@ -19,7 +19,7 @@ class UrlMappings {
             action = [GET: "getAllProducts", POST: "getAllProductsByToken"]
         }
 
-        "/cafe/getAll" {
+        "/cafes" {
             controller = "Cafe"
             action = "getAll"
         }

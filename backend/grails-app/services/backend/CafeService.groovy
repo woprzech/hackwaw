@@ -20,17 +20,17 @@ class CafeService {
         if (cafe == null)
             throw new Exception("Nie znaleziono takiej kawiarni")
 
+        def cafeAccount = CafeAccount.findByCafe(cafe)
+        if(cafeAccount == null)
+            throw new Exception("Nie znaleziono konta dla danej kawiarni")
+
         if (categoryName == null) {
-            return cafe.menu.products
+            return cafeAccount.products
         } else {
             def category = Category.findByName(categoryName)
             if (category == null)
                 throw new Exception("Nie znaleziono takiej kategorii")
             def products = []
-
-            def cafeAccount = CafeAccount.findByCafe(cafe)
-            if(cafeAccount == null)
-                throw new Exception("Nie znaleziono konta dla danej kawiarni")
 
             for (def prod : cafeAccount.products) {
                 if (prod.category == category)
