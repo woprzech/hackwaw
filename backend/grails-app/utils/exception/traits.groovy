@@ -3,7 +3,7 @@ package exception
 trait ExceptionHandler {
 
     def handleException(Exception e) {
-        response.status = 404
+        response.status = 406
         render(e.getMessage())
     }
 }

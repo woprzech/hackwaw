@@ -22,7 +22,7 @@ class CafeAccountService {
         def foundToken = Token.findByToken(token)
         if (foundToken == null) {
             if (account != null) {
-                if (!account.password == password) {
+                if (account.password == password) {
                     throw new Exception("Zle haslo")
                 } else {
                     def str = generator((('A'..'Z') + ('0'..'9')).join(), 128)

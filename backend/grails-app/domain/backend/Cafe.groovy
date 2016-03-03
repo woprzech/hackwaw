@@ -2,8 +2,8 @@ package backend
 
 class Cafe {
     Location location
+    Menu menu = new Menu()
     String name
-    Menu menu
 
     static embedded = ['location']
 

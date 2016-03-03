@@ -35,7 +35,7 @@ class UrlMappings {
         }
 
         "/order/add" {
-            controller = "Orderr"
+            controller = "CafeOrder"
             action = [POST: "create"]
         }
 
@@ -60,17 +60,17 @@ class UrlMappings {
         }
 
         "/order/create" {
-            controller = "Orderr"
+            controller = "CafeOrder"
             action = [POST: "newOrder"]
         }
 
         "/orders" {
-            controller = "Orderr"
-            action = [GET: "getOrders"]
+            controller = "CafeOrder"
+            action = [GET: "getOrders", POST: "getOrders"]
         }
 
         "/order/realize" {
-            controller = "Orderr"
+            controller = "CafeOrder"
             action = [POST: "remOrder"]
         }
 
@@ -82,6 +82,11 @@ class UrlMappings {
         "/registration" {
             controller = "Registration"
             action = [POST: "register"]
+        }
+
+        "/test/createData" {
+            controller = "Test"
+            action = [GET: "create"]
         }
 
         "500"(view: '/error')

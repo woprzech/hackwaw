@@ -3,7 +3,7 @@ package backend
 import grails.transaction.Transactional
 
 @Transactional
-class OrderrService {
+class CafeOrderService {
 
     def createOrder(def cafeId, def name, def productsIds, def minutes) {
         def cafe = Cafe.findById(cafeId)
@@ -13,17 +13,18 @@ class OrderrService {
         if (account == null)
             throw new Exception("Nie ma konta dla takiej kawiarni")
 
-        def newOrder = new Orderr(userName: name)
+        def newOrder = new CafeOrder(userName: name)
         newOrder.receiptionDate.setMinutes(newOrder.orderDate.getMinutes() + minutes)
+        newOrder.receiptionCode = generateCode()
         if (!newOrder.save(flush: true))
             throw new Exception("Nie udalo sie zapisac zamowienia")
 
         for (def it : productsIds) {
             def product = Product.findById(it.id)
-            newOrder.addToPositions(new OrderrPosition(product: product, amount: it.amount))
+            newOrder.addToPositions(new CafeOrderPosition(product: product, amount: it.amount))
         }
 
-        account.addToOrderrs(newOrder)
+        account.addToOrders(newOrder)
         if (!account.save(flush: true))
             throw new Exception("Nie udalo sie zapisac zmian w koncie")
     }
@@ -32,9 +33,9 @@ class OrderrService {
         def account = (CafeAccount) getUserByToken(token)
         if (account != null) {
             println orderId
-            def order = Orderr.findById(orderId)
+            def order = CafeOrder.findById(orderId)
             if (order != null) {
-                account.removeFromOrderrs(order)
+                account.removeFromOrders(order)
                 order.delete()
             } else {
                 throw new Exception("Nie znaleziono takiego zamówienia")
@@ -47,7 +48,7 @@ class OrderrService {
     def getOrders(def token) {
         def account = (CafeAccount) getUserByToken(token)
         if (account != null) {
-            return account.orderrs
+            return account.orders
         } else {
             throw new Exception("Musisz sie najpierw zalogowac")
         }
@@ -62,5 +63,9 @@ class OrderrService {
         return account
     }
 
-
+    def generateCode() {
+        Random random = new Random()
+        int code = random.nextInt(8999) + 1000
+        return code
+    }
 }
