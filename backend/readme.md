@@ -8,7 +8,7 @@ Dokumentacja api
 |Pobranie menu | /cafe/getMenu | GET/POST | (cafeId, category)/(token) | JSON
 |Aktualizacja produktu| /cafe/menu/product/update | POST| token, productId, name, description, price, categoryId| "OK"
 |Usuniecie produktu | /cafe/menu/product/remove | POST | token, productId | "OK"
-|Dodanie zamowienia| /order/add | POST | cafeId, userName, productIds(tablica), minutes | "OK"
+|Dodanie zamowienia| /order/menu/product/update | POST | cafeId, userName, productIds(tablica), minutes | "OK"
 |Realizacja zamowienia | /order/realize | POST | token, orderId | "OK"
 |Pobranie zamowien | /orders | POST |token|JSON
 |Pobranie kategorii| /categories | GET | - | JSON

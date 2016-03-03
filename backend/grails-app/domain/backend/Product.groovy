@@ -6,7 +6,7 @@ class Product {
     String name
     String description
 
-    static belongsTo = [menu: Menu]
+    static belongsTo = [cafeAccount: CafeAccount]
 
     static constraints = {
         name size: 1..20, blank: false

@@ -30,7 +30,7 @@ class UrlMappings {
         }
 
         "/cafe/menu/product/update" {
-            controller = "Menu"
+            controller = "CafeAccount"
             action = [POST: "updateProduct"]
         }
 
@@ -40,7 +40,7 @@ class UrlMappings {
         }
 
         "/cafe/menu/product/remove" {
-            controller = "Menu"
+            controller = "CafeAccount"
             action = [POST: "removeProduct"]
         }
 

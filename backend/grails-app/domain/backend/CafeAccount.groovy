@@ -5,9 +5,7 @@ class CafeAccount {
     String login
     String password
 
-    static hasMany = [tokens: Token, orders: CafeOrder]
-
-    static fetchMode = [orders: 'eager']
+    static hasMany = [tokens: Token, orders: CafeOrder, products: Product]
 
     static constraints = {
         login size: 5..20, blank: false, unique: true

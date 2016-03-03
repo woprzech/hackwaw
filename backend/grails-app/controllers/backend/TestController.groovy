@@ -20,13 +20,12 @@ class TestController {
         ciastka.save(flush: true)
         inne.save(flush: true)
 
-        def menu1 = cafe1.menu
         def latte = new Product(name: "Latte", category: kawa, description: "latte...", price: 500)
         def espresso = new Product(name: "Espresso", category: kawa, description: "espresso...", price: 500)
         def podwojne = new Product(name: "Podwojne Espresso", category: kawa, description: "podwojne espresso...", price: 600)
-        menu1.addToProducts(latte)
-        menu1.addToProducts(espresso)
-        menu1.addToProducts(podwojne)
+        account1.addToProducts(latte)
+        account1.addToProducts(espresso)
+        account1.addToProducts(podwojne)
 
         def order1 = new CafeOrder(userName: "Witek")
         order1.addToPositions(new CafeOrderPosition(product: latte, amount: 4))
