@@ -45,6 +45,7 @@ class CafeService {
         if (foundToken == null)
             throw new Exception("Nie znaleziono takiego tokenu")
 
-        return foundToken.cafeAccount.products
+        def cafeAccount = (CafeAccount) foundToken.account
+        return cafeAccount.products
     }
 }

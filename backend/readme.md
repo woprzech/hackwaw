@@ -16,3 +16,6 @@ Dokumentacja api
 |Wylogowanie| /account/logout| POST | token | "OK"
 |Rejestracja| /registration | POST | address, cafeName, email, phone | "OK"
 |Tworzenie danych testowych | /test/createData | GET | - | "OK"
+|Dodanie przez admina kawiarni| /admin/cafe/add | POST | token, cafeName, posX, posY | "OK"
+|Edycja danych kawiarni przez admina | /admin/cafe/update | POST | token, cafeId ,cafeName, posX, posY | "OK"
+|Usuniecie kawiarni przez dmina | /admin/cafe/remove | POST | token, cafeId | "OK"

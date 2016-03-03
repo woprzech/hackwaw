@@ -1,14 +1,12 @@
 package backend
 
-class CafeAccount {
+class CafeAccount extends Account {
+    boolean showMenu = false
+    AccountStatus accountStatus = AccountStatus.DEACTIVATED
     Cafe cafe
-    String login
-    String password
 
-    static hasMany = [tokens: Token, orders: CafeOrder, products: Product]
+    static hasMany = [orders: CafeOrder, products: Product]
 
     static constraints = {
-        login size: 5..20, blank: false, unique: true
-        password size: 5..20, blank: false, unique: false
     }
 }

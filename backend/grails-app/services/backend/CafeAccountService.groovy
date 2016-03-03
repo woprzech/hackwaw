@@ -17,62 +17,13 @@ class CafeAccountService {
             throw new Exception("Istnieje konto dla tej restauracji")
     }
 
-    def login(def userName, def password, def token) {
-        def account = CafeAccount.findByLogin(userName)
-        def foundToken = Token.findByToken(token)
-        if (foundToken == null) {
-            if (account != null) {
-                if (account.password == password) {
-                    throw new Exception("Zle haslo")
-                } else {
-                    def str = generator((('A'..'Z') + ('0'..'9')).join(), 128)
-                    def newToken = new Token(token: str)
-                    account.addToTokens(newToken)
-                    return newToken
-                }
-            } else
-                throw new Exception("Nie znaleziono uzytkownika z takim loginem")
-        } else
-            return foundToken
-    }
-
-    def logout(def currentToken) {
-        def account = getUserByToken(currentToken)
-        if (account != null) {
-            for (int i = 0; i < account.tokens.size(); i++) {
-                if (account.tokens[i] == currentToken) {
-                    def token = account.tokens[i]
-                    account.removeFromTokens(token)
-                    token.delete()
-                    break;
-                }
-            }
-        } else
-            throw new Exception("Nie znaleziono uzytkownika z takim loginem")
-    }
-
     def getUserByToken(def currentToken) {
         def token = Token.findByToken(currentToken)
-        def account = token.cafeAccount
-        return account
-    }
-
-    def generator = { String alphabet, int n ->
-        new Random().with {
-            (1..n).collect { alphabet[nextInt(alphabet.length())] }.join()
-        }
-    }
-
-    def getCafeAccountByCafeId(def cafeId) {
-        def cafe = Cafe.findById(cafeId)
-        if (cafe == null) {
-            throw new Exception("Cafe o takim id nie istnieje")
-        }
-        def cafeAccount = CafeAccount.findByCafe(cafe)
-        if (cafeAccount == null) {
-            throw new Exception("Wybrana kawiarnia nie ma możliwości składania zamówień")
-        }
-        return cafeAccount
+        if (token == null)
+            throw new Exception("Brak takiego tokenu")
+        if (token.account.class != CafeAccount.class)
+            throw new Exception("Zly typ konta")
+        return token.account
     }
 
     def updateProduct(def token, def productId, def newName, def newDescription, def newPrice, def newCategoryId) {
@@ -111,5 +62,13 @@ class CafeAccountService {
         } else {
             throw new Exception("Musisz sie najpierw zalogowac")
         }
+    }
+
+    def changeMenuFlag(def token, def status) {
+        CafeAccount account = (CafeAccount) getUserByToken(token)
+        account.cafe.hasMenu = status
+        account.showMenu = status
+        if (!account.save(flush: true) || !account.cafe.save(flush: true))
+            throw new Exception("Nie udalo sie zapisac zmian")
     }
 }

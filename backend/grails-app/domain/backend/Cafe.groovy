@@ -1,6 +1,8 @@
 package backend
 
 class Cafe {
+    boolean hasMenu = false
+    boolean premium = false
     Location location
     String name
 

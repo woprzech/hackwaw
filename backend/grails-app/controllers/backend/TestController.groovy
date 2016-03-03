@@ -13,6 +13,9 @@ class TestController {
         account1.save(flush: true)
         account2.save(flush: true)
 
+        def admin = new AdminAccount(login: "admin", password: "admin")
+        admin.save(flush: true)
+
         def kawa = new Category(name: "Kawa")
         def ciastka = new Category(name: "Ciastka")
         def inne = new Category(name: "Inne")

@@ -59,8 +59,7 @@ class CafeOrderService {
         if (token == null) {
             throw new Exception("Musisz się najpierw zalogować")
         }
-        def account = token.cafeAccount
-        return account
+        return token.account
     }
 
     def generateCode() {

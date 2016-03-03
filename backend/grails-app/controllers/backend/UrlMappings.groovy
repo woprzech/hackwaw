@@ -45,12 +45,12 @@ class UrlMappings {
         }
 
         "/account/login" {
-            controller = "CafeAccount"
+            controller = "Account"
             action = [POST: "login"]
         }
 
         "/account/logout" {
-            controller = "CafeAccount"
+            controller = "Account"
             action = [POST: "logout"]
         }
 
@@ -87,6 +87,26 @@ class UrlMappings {
         "/test/createData" {
             controller = "Test"
             action = [GET: "create"]
+        }
+
+        "/admin/cafe/add" {
+            controller = "AdminAccount"
+            action = [POST: "createCafe"]
+        }
+
+        "/admin/cafe/update" {
+            controller = "AdminAccount"
+            action = [POST: "updateCafeData"]
+        }
+
+        "/admin/cafe/remove" {
+            controller = "AdminAccount"
+            action = [POST: "removeCafe"]
+        }
+
+        "/account/change/menuFlag" {
+            controller = "CafeAccount"
+            action = [POST: "changeMenuFlag"]
         }
 
         "500"(view: '/error')
