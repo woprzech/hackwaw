@@ -2,8 +2,12 @@ package backend
 
 import grails.transaction.Transactional
 
+
+import javax.naming.AuthenticationException
+
 @Transactional
 class AccountService {
+
 
     def login(def userName, def password, def token) {
         def account = Account.findByLogin(userName)
@@ -33,7 +37,7 @@ class AccountService {
         if (token == null)
             throw new Exception("Nie znaleziono takiego tokenu")
 
-        def account = getAccountByToken(currentToken)
+        def account = getAuthorizedUser(currentToken)
         account.removeFromTokens(token)
         token.delete(flush: true)
     }
@@ -43,11 +47,22 @@ class AccountService {
             (1..n).collect { alphabet[nextInt(alphabet.length())] }.join()
         }
     }
-
-    def getAccountByToken(def currentToken) {
+    /**
+     * Check is user is authorized
+     * @param currentToken
+     * @return account
+     * @throws AuthenticationException - if user is not authorized
+     */
+    def getAuthorizedUser = { def currentToken ->
         def token = Token.findByToken(currentToken)
         if (token == null)
-            throw new Exception("Brak takiego tokenu")
+            throw new AuthenticationException("Brak takiego tokenu")
         return token.account
+    }
+
+    def changePassword(def token, def oldPassword, def newPassword) {
+        def user = getAuthorizedUser(token)
+        //TODO ja to dokończe~Wojtek
+//        if()
     }
 }

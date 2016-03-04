@@ -17,10 +17,7 @@ class AccountController implements ExceptionHandler {
     }
 
     def changePassword() {
-        // TODO
+        accountService.changePassword(request.JSON.token, request.JSON.oldPassword, request.JSON.newPassword)
     }
 
-    def changeLogin() {
-        // TODO
-    }
 }

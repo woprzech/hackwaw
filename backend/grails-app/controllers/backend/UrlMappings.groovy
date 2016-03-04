@@ -14,7 +14,7 @@ class UrlMappings {
             action = "add"
         }
 
-        "/cafe/getMenu" {
+        "/cafe/menu" {
             controller = "Cafe"
             action = [GET: "getAllProducts", POST: "getAllProductsByToken"]
         }
@@ -108,6 +108,12 @@ class UrlMappings {
             controller = "CafeAccount"
             action = [POST: "changeMenuFlag"]
         }
+
+        "/account/change/password" {
+            controller = "CafeAccount"
+            action = [POST: "changeMenuFlag"]
+        }
+
 
         "500"(view: '/error')
         "404"(view: '/notFound')

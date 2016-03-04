@@ -5,7 +5,8 @@ Dokumentacja api
 |-----------|-----------|------|---------| ----------|
 | Pobranie wszystkich kawiarni    | /cafes         |GET| - | JSON
 |Znalezienie kawiarni w okolicy | /cafe/findByLocation | POST| userX, userY, rad(km)|JSON
-|Pobranie menu | /cafe/getMenu | GET/POST | (cafeId, category)/(token) | JSON
+|Pobranie menu | /cafe/menu | GET | cafeId, category | JSON
+|Pobranie menu do edycji | /cafe/menu | POST | token | JSON
 |Aktualizacja produktu| /cafe/menu/product/update | POST| token, productId, name, description, price, categoryId| "OK"
 |Usuniecie produktu | /cafe/menu/product/remove | POST | token, productId | "OK"
 |Dodanie zamowienia| /order/menu/product/update | POST | cafeId, userName, productIds(tablica), minutes | "OK"
