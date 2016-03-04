@@ -17,7 +17,7 @@ class AccountService {
                 if (account.class == CafeAccount.class
                         && ((CafeAccount) account).accountStatus == AccountStatus.DEACTIVATED)
                     throw new Exception("Konto nieaktywne")
-
+                //TODO powrównanie przez bcrypt
                 if (account.password == password) {
                     throw new Exception("Zle haslo")
                 } else {
@@ -62,7 +62,20 @@ class AccountService {
 
     def changePassword(def token, def oldPassword, def newPassword) {
         def user = getAuthorizedUser(token)
-        //TODO ja to dokończe~Wojtek
-//        if()
+        //TODO porównanie przez bcrypt
+        if (user.password != oldPassword) {
+            throw new AuthenticationException("Podane obecne hasło jest nieprawidłowe")
+        }
+        validPassword(newPassword);
+        //TODO zaszyfrować hasło
+        user.password = newPassword
+        user.save()
+    }
+
+    def validPassword = { def password ->
+        if (password.length() < 5) {
+            throw new Exception("Nowe hasło musi mieć długość większą niż 5 znaków")
+        }
+        //TODO dopisać walidację
     }
 }
